@@ -4,4 +4,11 @@ $username = "root";
 $password = "";
 $bdname = "clientes";
 
-$conn = new msqli ($server, $username, $password, $bdname);
+$conn = new mysqli($server, $username, $password, $bdname); 
+
+if($conn->connect_error){
+    echo "error de conexion" . $conn->connect_error;
+}
+?>
+
+
