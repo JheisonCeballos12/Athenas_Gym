@@ -1,16 +1,28 @@
 <?php
+session_start();
 include("../connection/connection.php");
 
 if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $sql = "DELETE FROM registros WHERE id=$id";
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Cliente eliminado'); window.location='../index.php';</script>";
+    $id = intval($_POST['id']);
+    $sql_get = "SELECT estado FROM clientes WHERE id = $id";
+    $result = $conn->query($sql_get);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $nuevo_estado = $row['estado'] ? 0 : 1;
+
+        $sql_update = "UPDATE clientes SET estado = $nuevo_estado WHERE id = $id";
+        if ($conn->query($sql_update) === TRUE) {
+            header("Location: ../tables/table_cliente.php?msg=estado_actualizado");
+            exit();
+        } else {
+            echo "Error al actualizar estado: " . $conn->error;
+        }
     } else {
-        echo "Error al eliminar: " . $conn->error;
+        echo "Cliente no encontrado.";
     }
 } else {
-    echo "<script>alert('ID no recibido'); window.location='../index.php';</script>";
+    echo "ID no recibido.";
 }
 ?>
+
 

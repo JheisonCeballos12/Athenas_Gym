@@ -1,0 +1,364 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: url(../images/fondo_body.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar .logo_athenas {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  color: #000;
+  text-align: center;
+}
+
+.nav-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-panel a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.nav-panel a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* CONTENIDO PRINCIPAL */
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER SUPERIOR */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.title_header {
+  font-size: 2rem;
+  color: #000;
+}
+
+.button_close_session {
+  background-color: #000;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.button_close_session:hover {
+  background-color: #444;
+}
+
+/* MAIN */
+main {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+/* FORM MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal_form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input_with_icon {
+  position: relative;
+}
+
+.input_with_icon input,
+.input_with_icon select {
+  width: 100%;
+  padding: 10px 35px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.input_with_icon i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.checkbox_group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button_register {
+  background-color: #000;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button_register:hover {
+  background-color: #333;
+}
+
+/* BOTONES PARA MODAL Y VENTA */
+#openModalBtn,
+#openVentaBtn {
+  background-color: #006fe5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  width: 200px;
+  margin: 5px 0;
+}
+
+#openModalBtn:hover,
+#openVentaBtn:hover {
+  background-color: #0056b3;
+}
+
+/* TITULO DE TABLA */
+.title_table {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* BOTONES EDITAR Y ELIMINAR */
+#button_edit,
+#button_delete {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+#button_edit {
+  background-color: #e0dd03;
+  color: rgb(0, 0, 0);
+}
+
+#button_edit:hover {
+  background-color: #333;
+}
+
+#button_delete {
+  background-color: #00982b;
+  color: rgb(0, 0, 0);
+}
+
+#button_delete:hover {
+  background-color: red;
+}
+
+/* ENCABEZADO LATERAL */
+.side-header {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.side-header .header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.side-header .search-group form {
+  display: flex;
+  gap: 10px;
+}
+
+.side-header .search-group input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.side-header .search-group button {
+  padding: 10px 20px;
+  background-color: #0073ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.side-header .search-group button:hover {
+  background-color: #333;
+}
+
+.side-header .button-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.side-header .button-group button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #0073ff;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.side-header .button-group button:hover {
+  background-color: #333;
+}
+
+/* TABLA CLIENTES */
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.table-container th,
+.table-container td {
+  padding: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  text-align: center;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.table-container th {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #000;
+}
+
+.table-container button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.table-container button:hover {
+  background-color: #333;
+}
+
+/* ESTILO PARA EL TOAST CUMPLEAÑOS */
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #333;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+  opacity: 0.95;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 0.95; transform: translateY(0); }
+}
+

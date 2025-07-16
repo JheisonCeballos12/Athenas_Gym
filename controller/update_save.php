@@ -2,32 +2,33 @@
 include("../connection/connection.php");
 
 if (isset($_POST['actualizar'])) {
-    $id = $_POST['id'];
-    $nombres = $_POST['nombres'];
-    $apellidos = $_POST['apellidos'];
-    $identidad = $_POST['identidad'];
-    $telefono = $_POST['telefono'];
-    $direccion = $_POST['direccion'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $id = intval($_POST['id']);
+    $nombres = $conn->real_escape_string($_POST['nombres']);
+    $apellidos = $conn->real_escape_string($_POST['apellidos']);
+    $identidad = $conn->real_escape_string($_POST['identidad']);
+    $telefono = $conn->real_escape_string($_POST['telefono']);
+    $direccion = $conn->real_escape_string($_POST['direccion']);
+    $fecha_nacimiento = $conn->real_escape_string($_POST['fecha_nacimiento']);
     $estado = isset($_POST['estado']) ? 1 : 0;
-    $valor = $_POST['valor'];
 
-    $sql = "UPDATE registros SET 
+    $sql = "UPDATE clientes SET 
         nombres='$nombres',
         apellidos='$apellidos',
         identidad='$identidad',
         telefono='$telefono',
         direccion='$direccion',
         fecha_nacimiento='$fecha_nacimiento',
-        estado=$estado,
-        valor=$valor
+        estado=$estado
         WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Datos actualizados correctamente'); window.location='../index.php';</script>"; // cambiar este alert por un modal de notificaciones
+        header("Location: ../tables/table_cliente.php?msg=actualizado");
+        exit();
     } else {
         echo "Error al actualizar: " . $conn->error;
     }
+} else {
+    echo "Error: No se recibieron datos válidos.";
 }
 ?>
 

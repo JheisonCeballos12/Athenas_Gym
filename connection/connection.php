@@ -2,13 +2,19 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$bdname = "clientes";
+$bdname = "gym";
 
-$conn = new mysqli($server, $username, $password, $bdname); 
+// Crear conexión
+$conn = new mysqli($server, $username, $password, $bdname);
 
-if($conn->connect_error){
-    echo "error de conexion" . $conn->connect_error;
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Error de conexión a la base de datos: " . $conn->connect_error);
 }
+
+// Puedes eliminar este echo si no quieres mostrar nada al conectarte correctamente
+// echo "Conexión exitosa";
 ?>
+
 
 
