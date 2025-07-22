@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificar que no estén vacíos
     if (empty($usuario) || empty($contrasena)) {
-        echo "<script>alert('Debes completar ambos campos.'); window.location='../Login/login.php';</script>";
+        header("Location: ../Login/login.php?toast=Debes completar ambos campos.&type=error");
         exit();
     }
 
@@ -27,13 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../index.php");
         exit();
     } else {
-        echo "<script>alert('Usuario o contraseña incorrectos.'); window.location='../Login/login.php';</script>";
+        header("Location: ../Login/login.php?toast=Usuario o contraseña incorrectos.&type=error");
+        exit();
     }
 
     $stmt->close();
     $conn->close();
 }
 ?>
+
 
 
 

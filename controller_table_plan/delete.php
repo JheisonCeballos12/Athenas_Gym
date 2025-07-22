@@ -10,18 +10,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Cliente eliminado'); window.location='../tables/table_cliente.php';</script>";
+            header("Location: ../tables/table_cliente.php?toast=" . urlencode("✅ Cliente eliminado"));
+            exit();
         } else {
-            echo "Error al eliminar: " . $conn->error;
+            header("Location: ../tables/table_cliente.php?toast=" . urlencode("❌ Error al eliminar el cliente"));
+            exit();
         }
 
         $stmt->close();
     } else {
-        echo "<script>alert('ID inválido'); window.location='../tables/table_cliente.php';</script>";
+        header("Location: ../tables/table_cliente.php?toast=" . urlencode("⚠️ ID inválido"));
+        exit();
     }
 } else {
-    echo "<script>alert('ID no recibido'); window.location='../tables/table_cliente.php';</script>";
+    header("Location: ../tables/table_cliente.php?toast=" . urlencode("⚠️ ID no recibido"));
+    exit();
 }
 
 $conn->close();
-?>
+

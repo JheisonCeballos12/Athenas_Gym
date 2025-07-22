@@ -35,5 +35,9 @@ include("connection/connection.php");
       <header class="top-header">
         <h1 class="title_header">𝐀𝐓𝐇𝐄𝐍𝐀𝐒 𝐆𝐘𝐌</h1>
       </header>
+      
+       <!--TOAST-->
+      <?php include("partials/toast.php"); ?>
+
 </body>
 </html>

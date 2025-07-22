@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include("../connection/connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
@@ -11,15 +10,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
     $sql = "INSERT INTO planes (nombre, valor, meses) VALUES ('$nombre', $valor, $meses)";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../tables/table_plan.php?msg=Plan creado exitosamente");
+        header("Location: ../tables/table_plan.php?toast=" . urlencode("✅ Plan creado exitosamente"));
         exit();
     } else {
-        echo "Error al crear el plan: " . $conn->error;
+        header("Location: ../tables/table_plan.php?toast=" . urlencode("❌ Error al crear el plan"));
+        exit();
     }
 } else {
     header("Location: ../tables/table_plan.php");
     exit();
 }
 ?>
+
 
 

@@ -22,7 +22,8 @@ if (isset($_POST['actualizar'])) {
         WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../tables/table_cliente.php?msg=actualizado");
+        header("Location: ../tables/table_cliente.php?toast=" . urlencode("✅ Cliente actualizado correctamente") . "&type=success");
+
         exit();
     } else {
         echo "Error al actualizar: " . $conn->error;

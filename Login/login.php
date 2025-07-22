@@ -25,8 +25,11 @@
       </form>
     </div>
   </div>
-
+  
+  <!--TOAST-->
+  <?php include("../partials/toast.php"); ?>
 </body>
 </html>
+
 
 

@@ -1,10 +1,13 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['usuario'])) {
     header("Location: ../Login/login.php");
     exit();
 }
-include("../connection/connection.php");
+
+include ("../connection/connection.php");
+
 
 // FUNCIÓN EDITAR CLIENTE
 $cliente = null;
@@ -63,7 +66,33 @@ while ($v = $resultado_ventas->fetch_assoc()) {
 // CLIENTES Y PLANES PARA MODAL VENTA
 $result_clientes = $conn->query("SELECT id, nombres, apellidos FROM clientes");
 $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
+
+
+//CUMPLEAÑOS 
+
+    
+if (!isset($_SESSION['cumple_felicitado'])) {
+    include("../controllers/cumpleaneros.php"); // Este archivo debe buscar cumpleañeros de hoy
+    $_SESSION['cumple_felicitado'] = true;
+}
+
+
+$cumpleaneros = [];
+$sql_c = "SELECT nombres, apellidos, fecha_nacimiento FROM clientes";
+$resultado_c = $conn->query($sql_c);
+
+if ($resultado_c->num_rows > 0) {
+    $hoy = date('m-d');
+    while ($row = $resultado_c->fetch_assoc()) {
+        $fechaNac = date('m-d', strtotime($row['fecha_nacimiento']));
+        if ($hoy === $fechaNac) {
+            $cumpleaneros[] = $row['nombres'] . ' ' . $row['apellidos'];
+        }
+    }
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -155,7 +184,7 @@ $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
           <div class="modal-content">
             <span class="close-venta">&times;</span>
             <form class="modal_form" action="../controller_usuarios/send_registro.php" method="POST">
-              <h1 class="title_main">Registrar / Actualizar Plan</h1>
+              <h1 class="title_main">Registrar</h1>
 
               <div class="input_with_icon">
                 <select name="cliente_id" id="cliente_id_select" required>
@@ -181,29 +210,32 @@ $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
                 <i class="fa-solid fa-dumbbell"></i>
               </div>
 
-              <button class="button_register" type="submit">Registrar / Actualizar Plan</button>
+              <button class="button_register" type="submit">Registrar</button>
             </form>
           </div>
         </div>
 
-        <!-- SECTION WITH HEADER -->
+        <!-- SECCIÓN CON ENCABEZADO -->
         <div class="side-header">
           <h2 class="title_table">CLIENTES</h2>
 
           <div class="header-controls">
             <div class="search-group">
 
+            <!-- SECCION DE FILTROS -->
+
               <form method="GET" action="">
                   <form method="GET" action="">
                     <input type="text" name="busqueda" placeholder="Buscar por nombre, apellido, cédula o celular" value="<?= htmlspecialchars($busqueda) ?>">
-
+                   
+                    <!-- FILTRO ACTIVO E INACTIVO -->                     
                     <select name="estado_filtro">
                       <option value="">Todos (Estado)</option>
-                      <option value="1" <?= $estado_filtro === '1' ? 'selected' : '' ?>>Activos</option>
-                      <option value="0" <?= $estado_filtro === '0' ? 'selected' : '' ?>>Inactivos</option>
+                      <option class="button_activate" value="1" <?= $estado_filtro === '1' ? 'selected' : '' ?>>Activos</option>
+                      <option class="button_deactivate" value="0" <?= $estado_filtro === '0' ? 'selected' : '' ?>>Inactivos</option>
                     </select>
-
-                    <select name="vigencia_filtro">
+                    <!-- FILTRO VIGENCIA -->
+                   <select name="vigencia_filtro">
                       <option value="">Todos (Vigencia)</option>
                       <option value="vigente" <?= $vigencia_filtro === 'vigente' ? 'selected' : '' ?>>Vigentes</option>
                       <option value="vencida" <?= $vigencia_filtro === 'vencida' ? 'selected' : '' ?>>Vencidas</option>
@@ -221,7 +253,7 @@ $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
           </div>
         </div>
 
-        <!-- TABLA CLIENTES -->
+        <!-- VISTA TABLA CLIENTES -->
         <div class="table-container">
           <table border="1" cellpadding="10">
             <tr>
@@ -248,18 +280,26 @@ $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
                 if (!empty($row['fecha_vencimiento'])) {
                     $mensualidadEstado = ($row['fecha_vencimiento'] >= $hoy) ? 'VIGENTE' : 'VENCIDA';
                 }
+
+                // FILTRAR POR ESTADO
+                if ($estado_filtro === '1' && !$row['estado']) {
+                    continue;
+                }
+                if ($estado_filtro === '0' && $row['estado']) {
+                    continue;
+                }
+
+                // FILTRAR POR VIGENCIA
                   if ($vigencia_filtro === 'vigente' && $mensualidadEstado !== 'VIGENTE') {
                           continue;
                 }
                   if ($vigencia_filtro === 'vencida' && $mensualidadEstado !== 'VENCIDA') {
                           continue;
                 }
-
-
                 $meses = $ventas[$row['id']]['meses'] ?? '—';
                 $valor = $ventas[$row['id']]['valor'] ?? '—';
-
               ?>
+              <!-- AQUI LLEGA TODA LA INFORMACION JUNTO A LOS BOTONES -->
               <tr>
                 <td><?= $row['id'] ?></td>
                 <td><?= htmlspecialchars($row['nombres']) ?></td>
@@ -268,89 +308,94 @@ $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
                 <td><?= htmlspecialchars($row['telefono']) ?></td>
                 <td><?= htmlspecialchars($row['direccion']) ?></td>
                 <td><?= htmlspecialchars($row['fecha_nacimiento']) ?></td>
-                <td><?= $row['estado'] ? 'Activo' : 'Inactivo' ?></td>
+                <td class="<?= $row['estado'] ? 'estado-activo' : 'estado-inactivo' ?>">
+                  <?= $row['estado'] ? 'Activo' : 'Inactivo' ?>
+                </td>
                 <td><?= $mensualidadEstado ?></td>
                 <td><?= htmlspecialchars($row['fecha_registro']) ?></td>
                 <td><?= htmlspecialchars($row['fecha_vencimiento'] ?? '—') ?></td>
                 <td><?= htmlspecialchars($meses) ?></td>
                 <td>$<?= htmlspecialchars($valor) ?></td>
                 <td>
-                  <button type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar Datos</button>
+                  <button class="button_edit" type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar</button>
                   <button type="button" onclick="abrirModalVenta(<?= $row['id'] ?>)">Actualizar Plan</button>
+
                   <form action="../controller/delete.php" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro?');">
-                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                    <input type="hidden" name="nuevo_estado" value="<?= $row['estado'] ? 0 : 1 ?>">
-                    <button type="submit"><?= $row['estado'] ? 'Inactivar' : 'Activar' ?></button>
-                  </form>
+                      <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                      <input type="hidden" name="nuevo_estado" value="<?= $row['estado'] ? 0 : 1 ?>">
+                      <button type="submit"
+                        class="<?= $row['estado'] ? 'button_deactivate' : 'button_activate' ?>">
+                        <?= $row['estado'] ? 'desactivar' : 'Activar' ?>
+                      </button>
+                    </form>
+
                 </td>
 
               </tr>
             <?php endwhile; ?>
 
-                    <?php
-         $cumpleaneros = [];
-
-                while($row = $resultado->fetch_assoc()) {
-                  // Procesar datos normales...
-                  $hoy = date('m-d');
-                  $fechaNac = date('m-d', strtotime($row['fecha_nacimiento']));
-                  
-                  if ($hoy === $fechaNac) {
-                    $cumpleaneros[] = $row['nombres'] . ' ' . $row['apellidos'];
-                  }
-
-                  // Ya haces tu impresión normal de la fila
-                }
-        ?>
           </table>
         </div>
       </main>
     </div>
   </div>
 
-  <script>
-    const modal = document.getElementById("modal");
-    const modalVenta = document.getElementById("modalVenta");
-    const clienteSelectVenta = document.getElementById("cliente_id_select");
+<script>
+  const modal = document.getElementById("modal");
+  const modalVenta = document.getElementById("modalVenta");
+  const clienteSelectVenta = document.getElementById("cliente_id_select");
 
-    function abrirModalEditar(clienteId) {
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = '';
+  function abrirModalEditar(clienteId) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '';
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'edit_id';
+    input.value = clienteId;
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+  }
 
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'edit_id';
-      input.value = clienteId;
-      form.appendChild(input);
-
-      document.body.appendChild(form);
-      form.submit();
-    }
-
-    function abrirModalVenta(clienteId) {
+  function abrirModalVenta(clienteId) {
+    if (modalVenta) {
       modalVenta.style.display = "flex";
       if (clienteSelectVenta) {
         clienteSelectVenta.value = clienteId;
       }
     }
+  }
 
-    document.getElementById("openModalBtn").addEventListener("click", () => {
-      modal.style.display = "flex";
-    });
+  document.addEventListener("DOMContentLoaded", () => {
+    const openModalBtn = document.getElementById("openModalBtn");
+    if (openModalBtn && modal) {
+      openModalBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+      });
+    }
 
-    document.getElementById("openVentaBtn").addEventListener("click", () => {
-      modalVenta.style.display = "flex";
-    });
+    const openVentaBtn = document.getElementById("openVentaBtn");
+    if (openVentaBtn && modalVenta) {
+      openVentaBtn.addEventListener("click", () => {
+        modalVenta.style.display = "flex";
+      });
+    }
 
-    document.querySelector(".close").addEventListener("click", () => {
-      modal.style.display = "none";
-      window.location.href = "table_cliente.php";
-    });
+    const closeBtn = document.querySelector(".close");
+    if (closeBtn && modal) {
+      closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        window.location.href = "table_cliente.php";
+      });
+    }
 
-    document.querySelector(".close-venta").addEventListener("click", () => {
-      modalVenta.style.display = "none";
-    });
+    const closeVentaBtn = document.querySelector(".close-venta");
+    if (closeVentaBtn && modalVenta) {
+      closeVentaBtn.addEventListener("click", () => {
+        modalVenta.style.display = "none";
+      });
+    }
 
     window.addEventListener("click", (e) => {
       if (e.target === modal) {
@@ -362,24 +407,27 @@ $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
       }
     });
 
-    // MOSTRAR TOAST CUMPLEAÑOS
-
-      const cumpleaneros = <?= json_encode($cumpleaneros) ?>;
+    // TOAST DE CUMPLEAÑOS
+    const cumpleaneros = <?= json_encode($cumpleaneros) ?>;
     if (cumpleaneros.length > 0) {
       cumpleaneros.forEach(nombre => {
-        mostrarToast(`¡Hoy está de cumpleaños ${nombre}! 🎂`);
+        mostrarToast(`🎉 ¡Hoy está de cumpleaños ${nombre}! 🎂`);
       });
     }
 
     function mostrarToast(mensaje) {
       const toast = document.createElement('div');
-      toast.className = 'toast';
+      toast.className = 'toast-cumple';
       toast.textContent = mensaje;
       document.body.appendChild(toast);
-      setTimeout(() => {
-        toast.remove();
-      }, 5000);
+      setTimeout(() => toast.remove(), 6000);
     }
-  </script>
+  });
+</script>
+
+<!-- Incluir el archivo PHP fuera del script -->
+<?php include("../partials/toast.php"); ?>
+
+
 </body>
 </html>

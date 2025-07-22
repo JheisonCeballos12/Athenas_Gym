@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -27,10 +28,13 @@ body {
   gap: 20px;
 }
 
-.sidebar .logo_athenas {
-  width: 100px;
-  margin-bottom: 10px;
+
+.logo_athenas_header {
+  width: 150px;     /* más grande */
+  height: auto;
+  margin-bottom: 10px; /* espacio entre imagen y texto */
 }
+
 
 .sidebar h2 {
   font-size: 1.5rem;
@@ -112,6 +116,11 @@ main {
   z-index: 9999;
 }
 
+.modal.show {
+  display: flex !important;
+}
+
+
 .modal-content {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
@@ -121,7 +130,8 @@ main {
   position: relative;
 }
 
-.close {
+.close,
+.close-venta {
   position: absolute;
   right: 20px;
   top: 15px;
@@ -193,44 +203,7 @@ main {
   background-color: #0056b3;
 }
 
-/* TITULO DE TABLA */
-.title_table {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #000;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* BOTONES EDITAR Y ELIMINAR */
-#button_edit,
-#button_delete {
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin: 2px;
-}
-
-#button_edit {
-  background-color: #e0dd03;
-  color: rgb(0, 0, 0);
-}
-
-#button_edit:hover {
-  background-color: #333;
-}
-
-#button_delete {
-  background-color: #00982b;
-  color: rgb(0, 0, 0);
-}
-
-#button_delete:hover {
-  background-color: red;
-}
-
-/* ENCABEZADO LATERAL */
+/* ENCABEZADO LATERAL Y BÚSQUEDA */
 .side-header {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.4);
@@ -257,7 +230,8 @@ main {
   gap: 10px;
 }
 
-.side-header .search-group input {
+.side-header .search-group input,
+.side-header .search-group select {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -327,6 +301,7 @@ main {
   color: #000;
 }
 
+/* BOTÓN GENERAL */
 .table-container button {
   padding: 6px 12px;
   border: none;
@@ -341,8 +316,57 @@ main {
   background-color: #333;
 }
 
-/* ESTILO PARA EL TOAST CUMPLEAÑOS */
+/* BOTÓN EDITAR */
+.table-container .button_edit {
+  background-color: #e0dd03 !important;
+  color: #000 !important;
+}
 
+.table-container .button_edit:hover {
+  background-color: #c5be02 !important;
+}
+
+/* BOTÓN ELIMINAR */
+#button_delete {
+  background-color: #00982b;
+  color: rgb(0, 0, 0);
+}
+
+#button_delete:hover {
+  background-color: red;
+}
+
+/* BOTÓN ACTIVAR */
+.button_activate {
+  background-color: #38a169 !important;
+  color: white !important;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button_activate:hover {
+  background-color: #2f855a !important;
+}
+
+/* BOTÓN INACTIVAR */
+.button_deactivate {
+  background-color: #e53e3e !important;
+  color: white !important;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button_deactivate:hover {
+  background-color: #c53030 !important;
+}
+
+/* TOAST */
 .toast {
   position: fixed;
   bottom: 20px;
@@ -362,3 +386,47 @@ main {
   to { opacity: 0.95; transform: translateY(0); }
 }
 
+/* ESTADO ACTIVO E INACTIVO */
+.button_activate {
+  background-color: #017707 !important; /* verde */
+  color: rgb(255, 255, 255) !important;
+}
+
+.button_deactivate {
+  background-color: #840c0c !important; /* rojo */
+  color: rgb(255, 255, 255) !important;
+}
+
+.report-container {
+      background-color: rgba(255,255,255,0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin: 30px;
+    }
+    .report-container h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #000;
+    }
+    canvas {
+      max-width: 100%;
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+    }
+    form select, form button {
+      padding: 10px;
+      border-radius: 6px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      background-color: #0073ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #0056b3;
+    }

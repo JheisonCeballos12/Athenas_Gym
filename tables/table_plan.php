@@ -52,7 +52,8 @@ $resultado = $conn->query($sql);
 
       <main>
         <!-- MODAL FORM -->
-        <div id="modal" class="modal" style="<?= $plan ? 'display: block;' : 'display: none;' ?>">
+        <div id="modal" class="modal <?= $plan ? 'show' : '' ?>">
+
           <div class="modal-content">
             <span class="close">&times;</span>
             <form class="modal_form" action="../controller_table_plan/insert.php" method="POST">
@@ -86,13 +87,16 @@ $resultado = $conn->query($sql);
           </div>
         </div>
 
-        <!-- SECTION WITH BUTTON AND TABLE -->
+        <!-- 🗂️ Contenedor de toda la sección principal -->
         <div class="main-container">
+
+        <!-- 📌 Encabezado lateral con título y botón -->
           <div class="side-header">
             <h2 class="title_table">PLANES</h2>
             <button id="openModalBtn">Crear Plan</button>
           </div>
 
+          <!-- 📊 Contenedor de tabla -->
           <div class="table-container">
             <table border="1" cellpadding="10">
               <tr>
@@ -102,6 +106,8 @@ $resultado = $conn->query($sql);
                 <th>Meses</th>
                 <th>Acciones</th>
               </tr>
+
+               <!-- 🔁 Ciclo que recorre los planes -->
               <?php while($row = $resultado->fetch_assoc()): ?>
               <tr>
                 <td><?= $row['id'] ?></td>
@@ -109,7 +115,8 @@ $resultado = $conn->query($sql);
                 <td><?= htmlspecialchars($row['valor']) ?></td>
                 <td><?= htmlspecialchars($row['meses']) ?></td>
                 <td>
-                  <a href="table_plan.php?edit_id=<?= $row['id'] ?>" id="button_edit">Editar</a>
+                  <button class="button_edit" type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar</button>
+
                   
                   <form action="../controller/delete_plan.php" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro?');">
                     <input type="hidden" name="id" value="<?= $row['id'] ?>">
@@ -130,11 +137,20 @@ $resultado = $conn->query($sql);
     const btn = document.getElementById("openModalBtn");
     const span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = () => modal.style.display = "block";
+    btn.onclick = () => modal.style.display = "flex";
+
+    function abrirModalEditar(id) {
+    window.location.href = 'table_plan.php?edit_id=' + id;
+    }
+
+
+    // Cerrar con la X
     span.onclick = () => {
       modal.style.display = "none";
       window.location.href = "table_plan.php";
     }
+
+    // Cerrar haciendo clic fuera del modal
     window.onclick = (e) => {
       if (e.target == modal) {
         modal.style.display = "none";
@@ -142,5 +158,9 @@ $resultado = $conn->query($sql);
       }
     }
   </script>
+
+  <!--TOAST-->
+  <?php include("../partials/toast.php"); ?>
+
 </body>
 </html>
