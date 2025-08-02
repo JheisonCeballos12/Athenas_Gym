@@ -23,7 +23,7 @@ include("connection/connection.php");
       <img class="logo_athenas" src="images/logo_athenas.png" alt="logo_athenas">
       <nav class="nav-panel">
         <a href="index.php"><i class="fa-solid fa-house"></i> Inicio</a>
-        <a href="tables/table_cliente.php"><i class="fa-solid fa-users"></i> Clientes</a>
+        <a href="tables/views/table_clients.php"><i class="fa-solid fa-users"></i> Clientes</a>
         <a href="tables/table_plan.php"><i class="fa-solid fa-dumbbell"></i> Planes</a>              <!-- crear un menu para todos los archivos -->
         <a href="tables/report.php"><i class="fa-solid fa-chart-line"></i> Reportes</a>
         <a href="logout.php"><i class="fa-solid fa-door-open"></i> Cerrar sesión</a>

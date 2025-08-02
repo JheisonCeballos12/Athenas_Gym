@@ -1,4 +1,5 @@
-<?php
+
+<?php  
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
@@ -8,26 +9,21 @@ if (!isset($_SESSION['usuario'])) {
 
 include("../connection/connection.php");
 
-// Filtros
 $where = "";
 if (isset($_GET['mes']) && $_GET['mes'] != "") {
     $mes = intval($_GET['mes']);
     $where = "WHERE MONTH(fecha_registro) = $mes";
 }
 
-// Total clientes activos
 $res_activos = $conn->query("SELECT COUNT(*) AS total FROM clientes WHERE estado = 1");
 $total_activos = $res_activos->fetch_assoc()['total'];
 
-// Total vendido en el año
 $res_total = $conn->query("SELECT SUM(valor_pagado) AS total FROM clientes WHERE YEAR(fecha_registro) = YEAR(CURDATE())");
 $total_anual = $res_total->fetch_assoc()['total'];
 
-// Plan más vendido (por meses del plan)
 $res_top = $conn->query("SELECT meses_del_plan, COUNT(*) AS total FROM clientes GROUP BY meses_del_plan ORDER BY total DESC LIMIT 1");
 $top_plan = $res_top->fetch_assoc();
 
-// Gráfico: Ventas por mes
 $ventas_mes = [];
 for ($i = 1; $i <= 12; $i++) {
     $res = $conn->query("SELECT SUM(valor_pagado) AS total FROM clientes WHERE MONTH(fecha_registro) = $i");
@@ -35,7 +31,6 @@ for ($i = 1; $i <= 12; $i++) {
     $ventas_mes[] = $row['total'] ?? 0;
 }
 
-// Gráfico: Ventas por duración de plan
 $duraciones = [1, 2, 3, 6, 12];
 $ventas_planes = [];
 foreach ($duraciones as $dur) {
@@ -51,13 +46,12 @@ foreach ($duraciones as $dur) {
   <meta charset="UTF-8">
   <title>Reportes - Athenas Gym</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="../styles/report.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../styles/report.css">
 </head>
 <body>
 
 <div class="layout">
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <img class="logo_athenas" src="../images/logo_athenas.png" alt="logo_athenas">
     <nav class="nav-panel">
@@ -69,46 +63,51 @@ foreach ($duraciones as $dur) {
     </nav>
   </aside>
 
-  <!-- CONTENT -->
   <div class="content">
     <header class="top-header">
       <h1 class="title_header">𝐀𝐓𝐇𝐄𝐍𝐀𝐒 𝐆𝐘𝐌</h1>
     </header>
 
     <main class="main-content">
-      <div class="top-bar">
-        <h1 style="color: white;">Reportes de Ventas</h1>
-      </div>
 
-      <!-- Filtro por mes -->
-      <form method="GET" class="filters">
-        <label for="mes">Filtrar por mes:</label>
-        <select name="mes" id="mes">
-          <option value="">Todos</option>
-          <?php
-          for ($i = 1; $i <= 12; $i++) {
-            $selected = (isset($_GET['mes']) && $_GET['mes'] == $i) ? 'selected' : '';
-            echo "<option value='$i' $selected>" . date("F", mktime(0, 0, 0, $i, 10)) . "</option>";
-          }
-          ?>
-        </select>
-        <button type="submit">Filtrar</button>
-      </form>
+      <!-- Reporte estático (sin modal oculto) -->
+      <div class="modal-content">
+        <div class="report-container">
 
-      <!-- Contenedor de reportes -->
-      <div class="report-container">
-        <h2>Resumen General</h2>
-        <p><strong>Clientes activos:</strong> <?= $total_activos ?></p>
-        <p><strong>Total vendido en el año:</strong> $<?= number_format($total_anual) ?></p>
-        <p><strong>Plan más vendido:</strong> <?= $top_plan['meses_del_plan'] ?> meses (<?= $top_plan['total'] ?> inscripciones)</p>
-
-        <div class="chart-row">
-          <div class="chart-box">
-            <canvas id="ventasPorMes" width="400" height="300"></canvas>
+          <!-- Parte superior: Título, Filtros y Resumen -->
+          <div class="report-top" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; flex-wrap: wrap;">
+            <div class="filters-section">
+              <h1>📊 Reportes de Ventas</h1>
+              <form method="GET" class="filters-form">
+                <label for="mes">Filtrar por mes:</label>
+                <select name="mes" id="mes">
+                  <option value="">Todos</option>
+                  <?php for ($i = 1; $i <= 12; $i++) {
+                    $selected = (isset($_GET['mes']) && $_GET['mes'] == $i) ? 'selected' : '';
+                    echo "<option value='$i' $selected>" . date("F", mktime(0, 0, 0, $i, 10)) . "</option>";
+                  } ?>
+                </select>
+                <button type="submit">Filtrar</button>
+              </form>
+            </div>
+            <div class="summary-section">
+              <h2>Resumen General</h2>
+              <p><strong>Clientes activos:</strong> <?= $total_activos ?></p>
+              <p><strong>Total vendido en el año:</strong> $<?= number_format($total_anual) ?></p>
+              <p><strong>Plan más vendido:</strong> <?= $top_plan['meses_del_plan'] ?> meses (<?= $top_plan['total'] ?> inscripciones)</p>
+            </div>
           </div>
-          <div class="chart-box">
-            <canvas id="ventasPorPlan" width="400" height="300"></canvas>
+
+          <!-- Parte inferior: Gráficas -->
+          <div class="chart-row" style="display: flex; justify-content: space-around; gap: 40px; margin-top: 40px; flex-wrap: wrap;">
+            <div class="chart-box">
+              <canvas id="ventasPorMes" width="400" height="300"></canvas>
+            </div>
+            <div class="chart-box">
+              <canvas id="ventasPorPlan" width="400" height="300"></canvas>
+            </div>
           </div>
+
         </div>
       </div>
     </main>
@@ -130,6 +129,7 @@ const ventasPorMes = new Chart(ctxMes, {
         }]
     },
     options: {
+        responsive: true,
         scales: { y: { beginAtZero: true } }
     }
 });
@@ -144,6 +144,9 @@ const ventasPorPlan = new Chart(ctxPlan, {
             data: <?= json_encode($ventas_planes) ?>,
             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
         }]
+    },
+    options: {
+        responsive: true
     }
 });
 </script>

@@ -7,6 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cliente_id = intval($_POST['cliente_id']);
         $plan_id = intval($_POST['plan_id']);
 
+        //------------------------------------------------------------------------------------------------
+
         // 1️⃣ Obtener precio y duración del plan
         $sql_plan = "SELECT valor, meses FROM planes WHERE id = $plan_id";
         $result_plan = $conn->query($sql_plan);
@@ -22,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
 
+            //------------------------------------------------------------------------------------------------
+
             // 2️⃣ Insertar inscripción
             $sql_insert_venta = sprintf(
                 "INSERT INTO inscripciones (cliente_id, plan_id, valor) VALUES (%d, %d, %d)",
@@ -33,9 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
 
+            //------------------------------------------------------------------------------------------------
+
             // 3️⃣ Calcular nueva fecha de vencimiento
             $fecha_hoy = date('Y-m-d');
             $nueva_fecha_vencimiento = date('Y-m-d', strtotime("+$duracion_meses months", strtotime($fecha_hoy)));
+            
+            //------------------------------------------------------------------------------------------------
 
             // 4️⃣ Actualizar cliente
             $sql_update_cliente = sprintf(

@@ -17,6 +17,8 @@ body {
   min-height: 100vh;
 }
 
+/*----------------------------------------------------------------------*/
+
 /* SIDEBAR */
 .sidebar {
   width: 250px;
@@ -60,12 +62,16 @@ body {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+/*----------------------------------------------------------------------*/
+
 /* CONTENIDO PRINCIPAL */
 .content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
+
+/*----------------------------------------------------------------------*/
 
 /* HEADER SUPERIOR */
 .top-header {
@@ -96,11 +102,15 @@ body {
   background-color: #444;
 }
 
+/*----------------------------------------------------------------------*/
+
 /* MAIN */
 main {
   flex-grow: 1;
   padding: 30px;
 }
+
+/*----------------------------------------------------------------------*/
 
 /* FORM MODAL */
 .modal {
@@ -185,6 +195,8 @@ main {
   background-color: #333;
 }
 
+/*----------------------------------------------------------------------*/
+
 /* BOTONES PARA MODAL Y VENTA */
 #openModalBtn,
 #openVentaBtn {
@@ -202,6 +214,8 @@ main {
 #openVentaBtn:hover {
   background-color: #0056b3;
 }
+
+/*----------------------------------------------------------------------*/
 
 /* ENCABEZADO LATERAL Y BÚSQUEDA */
 .side-header {
@@ -271,17 +285,23 @@ main {
   background-color: #333;
 }
 
+/*----------------------------------------------------------------------*/
+
 /* TABLA CLIENTES */
 .table-container {
   flex: 1;
   overflow-x: auto;
 }
 
+.title_table{
+  color: #000;
+}
+
 .table-container table {
   width: 100%;
   border-collapse: collapse;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.757);
+  backdrop-filter: blur(6px);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -301,40 +321,51 @@ main {
   color: #000;
 }
 
-/* BOTÓN GENERAL */
+/*----------------------------------------------------------------------*/
+
+/* BOTÓN ACTUALIZAR */
 .table-container button {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
-  background-color: #000;
+  background-color: #626262;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-width: 120px; /* Tamaño uniforme */
 }
 
 .table-container button:hover {
   background-color: #333;
 }
 
+/*----------------------------------------------------------------------*/
+
 /* BOTÓN EDITAR */
 .table-container .button_edit {
   background-color: #e0dd03 !important;
   color: #000 !important;
+  min-width: 120px; /* Tamaño uniforme */
 }
 
 .table-container .button_edit:hover {
   background-color: #c5be02 !important;
 }
 
+/*----------------------------------------------------------------------*/
+
 /* BOTÓN ELIMINAR */
 #button_delete {
   background-color: #00982b;
   color: rgb(0, 0, 0);
+  min-width: 120px; /* Tamaño uniforme */
 }
 
 #button_delete:hover {
   background-color: red;
 }
+
+/*----------------------------------------------------------------------*/
 
 /* BOTÓN ACTIVAR */
 .button_activate {
@@ -345,6 +376,7 @@ main {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-width: 120px; /* Tamaño uniforme */
 }
 
 .button_activate:hover {
@@ -360,31 +392,19 @@ main {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-width: 120px; /* Tamaño uniforme */
 }
 
 .button_deactivate:hover {
   background-color: #c53030 !important;
 }
 
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #333;
-  color: #fff;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  z-index: 9999;
-  opacity: 0.95;
-  animation: fadeIn 0.5s;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 0.95; transform: translateY(0); }
 }
+
+/*----------------------------------------------------------------------*/
 
 /* ESTADO ACTIVO E INACTIVO */
 .button_activate {
@@ -397,36 +417,23 @@ main {
   color: rgb(255, 255, 255) !important;
 }
 
-.report-container {
-      background-color: rgba(255,255,255,0.8);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      margin: 30px;
-    }
-    .report-container h2 {
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-      color: #000;
-    }
-    canvas {
-      max-width: 100%;
-      background-color: white;
-      border-radius: 10px;
-      padding: 15px;
-    }
-    form select, form button {
-      padding: 10px;
-      border-radius: 6px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-    }
-    form button {
-      background-color: #0073ff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    form button:hover {
-      background-color: #0056b3;
-    }
+
+ /* ESTADO VIGEMTE Y VENCIDO */
+.estado-vigente {
+  background-color: #68f188 !important; /* Verde */
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.estado-vencida {
+  background-color: #ea5e6c !important; /* Rojo */
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
