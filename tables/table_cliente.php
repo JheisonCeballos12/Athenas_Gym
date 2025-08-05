@@ -2,11 +2,17 @@
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../../Login/login.php");
+    header("Location: ../Login/login.php");
     exit();
 }
 
-include ("../../connection/connection.php");
+//------------------------------------------------------------------------------------------------
+
+
+include ("../connection/connection.php");
+
+//------------------------------------------------------------------------------------------------
+
 
 $sql = "UPDATE clientes 
         SET mensualidad = 

@@ -1,4 +1,7 @@
-<?php include("../table_cliente.php"); ?>
+<?php require_once("../connection/connection.php");?>
+<?php include("../tables/table_cliente.php"); ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,26 +10,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes Athenas Gym</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="../../styles/style_tables.css" />
+  <link rel="stylesheet" href="../styles/style_tables.css" />
 </head>
 <body>
   <div class="layout">
     
-    <!-- SIDEBAR -->
-   <?php include("../../partials/sidebar.php"); ?>
+    <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
+   <?php include("../partials/sidebar.php"); ?>
 
-    <!-- CONTENT -->
+
+    <!-- CONTENT--------------------------------------------------------------------------------------------------------- -->
     <div class="content">
       <header class="top-header">
         <h1 class="title_header">𝐀𝐓𝐇𝐄𝐍𝐀𝐒 𝐆𝐘𝐌</h1>
       </header>
 
+
       <main>
-        <!-- MODAL CREAR/EDITAR CLIENTE -->
+        <!-- MODAL CREAR/EDITAR CLIENTE ------------------------------------------------------------------------------------------------->
         <div id="modal" class="modal" <?= $cliente ? 'style="display: flex;"' : '' ?>>
           <div class="modal-content">
             <span class="close">&times;</span>
-            <form class="modal_form" action="<?= $cliente ? '../../controller/update_save.php' : '../../controller/send.php' ?>" method="POST">
+            <form class="modal_form" action="<?= $cliente ? '../controller/update_save.php' : '../controller/send.php' ?>" method="POST">
               <?php if ($cliente): ?>
                 <input type="hidden" name="id" value="<?= $cliente['id'] ?>">
               <?php endif; ?>
@@ -76,12 +81,13 @@
             </form>
           </div>
         </div>
+        
 
-        <!-- MODAL VENDER PLAN -->
+        <!-- MODAL VENDER PLAN ---------------------------------------------------------------------------------------------->
         <div id="modalVenta" class="modal">
           <div class="modal-content">
             <span class="close-venta">&times;</span>
-            <form class="modal_form" action="../../controller_usuarios/send_registro.php" method="POST">
+            <form class="modal_form" action="../controller_usuarios/send_registro.php" method="POST">
               <h1 class="title_main">Registrar</h1>
 
               <div class="input_with_icon">
@@ -113,25 +119,25 @@
           </div>
         </div>
 
-        <!-- SECCIÓN CON ENCABEZADO -->
+        <!-- SECCIÓN CON ENCABEZADO -------------------------------------------------------------->
         <div class="side-header">
           <h2 class="title_table">CLIENTES</h2>
 
           <div class="header-controls">
             <div class="search-group">
 
-            <!-- SECCION DE FILTROS -->
+            <!-- SECCION DE FILTROS ------------------------------------------------------------------------>
 
                   <form method="GET" action="">
                     <input type="text" name="busqueda" placeholder="Buscar por nombre, apellido, cédula o celular" value="<?= htmlspecialchars($busqueda) ?>">
                    
-                    <!-- FILTRO ACTIVO E INACTIVO -->                     
+                    <!-- FILTRO ACTIVO E INACTIVO -------------------------------------------------------------------------->                     
                     <select name="estado_filtro">
                       <option value="">Todos (Estado)</option>
                       <option class="button_activate" value="1" <?= $estado_filtro === '1' ? 'selected' : '' ?>>Activos</option>
                       <option class="button_deactivate" value="0" <?= $estado_filtro === '0' ? 'selected' : '' ?>>Inactivos</option>
                     </select>
-                    <!-- FILTRO VIGENCIA -->
+                    <!-- FILTRO VIGENCIA ----------------------------------------------------------------------------------->
                    <select name="vigencia_filtro">
                       <option value="">Todos (Vigencia)</option>
                       <option value="vigente" <?= $vigencia_filtro === 'vigente' ? 'selected' : '' ?>>Vigentes</option>
@@ -150,7 +156,7 @@
           </div>
         </div>
 
-        <!-- VISTA TABLA CLIENTES -->
+        <!-- VISTA TABLA CLIENTES -------------------------------------------------------------------------------->
         <div class="table-container">
           <table border="1" cellpadding="10">
             <tr>
@@ -198,7 +204,7 @@
                 $valor = $ventas[$row['id']]['valor'] ?? '—';
               ?>
 
-              <!-- AQUI LLEGA TODA LA INFORMACION JUNTO A LOS BOTONES -->
+              <!-- AQUI LLEGA TODA LA INFORMACION JUNTO A LOS BOTONES -------------------------------------------------------------------------------------->
               <tr>
                 <td><?= $row['id'] ?></td>
                 <td><?= htmlspecialchars($row['nombres']) ?></td>
@@ -249,7 +255,7 @@
 
 
 <!-- Incluir el archivo PHP fuera del script -->
-<?php include("../../partials/toast.php"); ?>
+<?php include("../partials/toast.php"); ?>
 
 
 </body>

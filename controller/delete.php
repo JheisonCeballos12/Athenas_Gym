@@ -12,7 +12,7 @@ if (isset($_POST['id'])) {
 
         $sql_update = "UPDATE clientes SET estado = $nuevo_estado WHERE id = $id";
         if ($conn->query($sql_update) === TRUE) {
-            header("Location: ../tables/table_cliente.php?toast=" . urlencode("✅ Estado actualizado correctamente") . "&type=success");
+            header("Location: ../views/table_clients.php?toast=" . urlencode("✅ Estado actualizado correctamente") . "&type=success");
 
             exit();
         } else {

@@ -22,7 +22,7 @@ if (isset($_POST['actualizar'])) {
         WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../tables/table_cliente.php?toast=" . urlencode("✅ Cliente actualizado correctamente") . "&type=success");
+        header("Location: ../views/table_clients.php?toast=" . urlencode("✅ Cliente actualizado correctamente") . "&type=success");
 
         exit();
     } else {

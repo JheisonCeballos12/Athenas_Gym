@@ -15,20 +15,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
         $stmt->bind_param("sdii", $nombre, $valor, $meses, $id);
 
         if ($stmt->execute()) {
-            header("Location: ../tables/table_plan.php?toast=" . urlencode("✅ Plan actualizado exitosamente"));
+            header("Location: ../views/table_plan.php?toast=" . urlencode("✅ Plan actualizado exitosamente"));
             exit();
         } else {
-            header("Location: ../tables/table_plan.php?toast=" . urlencode("❌ Error al actualizar el plan"));
+            header("Location: ../views/table_plan.php?toast=" . urlencode("❌ Error al actualizar el plan"));
             exit();
         }
 
         $stmt->close();
     } else {
-        header("Location: ../tables/table_plan.php?toast=" . urlencode("⚠️ Todos los campos son requeridos"));
+        header("Location: ../views/table_plan.php?toast=" . urlencode("⚠️ Todos los campos son requeridos"));
         exit();
     }
 } else {
-    header("Location: ../tables/table_plan.php");
+    header("Location: ../views/table_plan.php");
     exit();
 }
 

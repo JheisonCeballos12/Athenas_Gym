@@ -25,7 +25,7 @@ if (
         VALUES('$nombres', '$apellidos', '$identidad', '$telefono', '$direccion', '$fecha_nacimiento', $estado, '$fecha_registro')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../tables/table_cliente.php?toast=" . urlencode("✅ Cliente registrado correctamente") . "&type=success");
+        header("Location: ../views/table_clients.php?toast=" . urlencode("✅ Cliente registrado correctamente") . "&type=success");
  
     } else {
         echo "Error: " . $conn->error;

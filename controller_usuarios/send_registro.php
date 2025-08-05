@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $duracion_meses = isset($row_plan['meses']) && is_numeric($row_plan['meses']) ? intval($row_plan['meses']) : 0;
 
             if ($valor_plan <= 0 || $duracion_meses <= 0) {
-                header("Location: ../tables/table_cliente.php?toast=plan_invalido&type=error");
+                header("Location: ../views/table_clients.php?toast=plan_invalido&type=error");
                 exit();
             }
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             if (!$conn->query($sql_insert_venta)) {
-                header("Location: ../tables/table_cliente.php?toast=error_venta&type=error");
+                header("Location: ../views/table_clients.php?toast=error_venta&type=error");
                 exit();
             }
 
@@ -55,25 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             if (!$conn->query($sql_update_cliente)) {
-                header("Location: ../tables/table_cliente.php?toast=error_actualizar_cliente&type=error");
+                header("Location: ../views/table_clients.php?toast=error_actualizar_cliente&type=error");
                 exit();
             }
 
             // ✅ Éxito
-            header("Location: ../tables/table_cliente.php?toast=venta_exitosa&type=success");
+            header("Location: ../views/table_clients.php?toast=venta_exitosa&type=success");
             exit();
 
         } else {
-            header("Location: ../tables/table_cliente.php?toast=plan_no_encontrado&type=error");
+            header("Location: ../views/table_clients.php?toast=plan_no_encontrado&type=error");
             exit();
         }
 
     } else {
-        header("Location: ../tables/table_cliente.php?toast=faltan_datos&type=error");
+        header("Location: ../views/table_clients.php?toast=faltan_datos&type=error");
         exit();
     }
 } else {
-    header("Location: ../tables/table_cliente.php");
+    header("Location: ../views/table_clients.php");
     exit();
 }
 ?>

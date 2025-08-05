@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
     $sql = "INSERT INTO planes (nombre, valor, meses) VALUES ('$nombre', $valor, $meses)";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../tables/table_plan.php?toast=" . urlencode("✅ Plan creado exitosamente"));
+        header("Location: ../views/table_plan.php?toast=" . urlencode("✅ Plan creado exitosamente"));
         exit();
     } else {
-        header("Location: ../tables/table_plan.php?toast=" . urlencode("❌ Error al crear el plan"));
+        header("Location: ../views/table_plan.php?toast=" . urlencode("❌ Error al crear el plan"));
         exit();
     }
 } else {
-    header("Location: ../tables/table_plan.php");
+    header("Location: ../views/table_plan.php");
     exit();
 }
 ?>

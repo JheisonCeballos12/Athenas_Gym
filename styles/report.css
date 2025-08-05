@@ -1,4 +1,4 @@
-/* RESET */
+/* RESET -----------------------------------------------------------------------*/
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +10,7 @@ body {
   background: url(../images/fondo_body.jpg) no-repeat center center fixed;
   background-size: cover;
   color: #333;
+  display: flex;
 }
 
 .layout {
@@ -17,7 +18,7 @@ body {
   min-height: 100vh;
 }
 
-/* SIDEBAR */
+/* SIDEBAR --------------------------------------------------------------------*/
 .sidebar {
   width: 250px;
   background-color: rgb(255, 255, 255);
