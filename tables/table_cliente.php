@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-include ("../connection/connection.php");
+include ("../../connection/connection.php");
 
 $sql = "UPDATE clientes 
         SET mensualidad = 

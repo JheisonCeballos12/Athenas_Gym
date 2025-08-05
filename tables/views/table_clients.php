@@ -37,7 +37,7 @@
 
               <div class="input_with_icon">
                 <input type="text" name="nombres" placeholder="Nombres aquí" required value="<?= $cliente['nombres'] ?? '' ?>">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user">+</i>
               </div>
 
               <div class="input_with_icon">
