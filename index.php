@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../Login/login.php"); 
+    header("Location: Login/login.php"); 
     exit();
 }
-include("../connection/connection.php");
+include("connection/connection.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +14,12 @@ include("../connection/connection.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reportes Athenas Gym</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="../styles/style_tables.css" />
+  <link rel="stylesheet" href="styles/style_tables.css" />
 </head>
 <body>
   <div class="layout">
   <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
-   <?php include("../partials/sidebar.php"); ?>
+   <?php include("partials/sidebar.php"); ?>
     
     <!-- CONTENT -->
     <div class="content">
@@ -28,7 +28,7 @@ include("../connection/connection.php");
       </header>
       
        <!--TOAST-->
-      <?php include("../partials/toast.php"); ?>
+      <?php include("partials/toast.php"); ?>
 
 </body>
 </html>
