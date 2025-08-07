@@ -210,7 +210,20 @@
                 <td><?= htmlspecialchars($row['nombres']) ?></td>
                 <td><?= htmlspecialchars($row['apellidos']) ?></td>
                 <td><?= htmlspecialchars($row['identidad']) ?></td>
-                <td><?= htmlspecialchars($row['telefono']) ?></td>
+                <td>
+                  <?= htmlspecialchars($row['telefono']) ?>
+                  <?php if ($mensualidadEstado === 'VENCIDA' && !empty($row['telefono'])): ?>
+                    <a
+                      href="https://wa.me/57<?= $row['telefono'] ?>?text=Hola%20<?= urlencode($row['nombres']) ?>,%20tu%20plan%20en%20Athenas%20Gym%20ha%20vencido.%20¿Deseas%20renovarlo?"
+                      target="_blank"
+                      title="Enviar WhatsApp"
+                      style="margin-left: 6px;"
+                    >
+                      <i class="fab fa-whatsapp" style="color: green; font-size: 20px;"></i>
+                    </a>
+                  <?php endif; ?>
+                </td>
+
                 <td><?= htmlspecialchars($row['direccion']) ?></td>
                 <td><?= htmlspecialchars($row['fecha_nacimiento']) ?></td>
                 <td class="<?= $row['estado'] ? 'estado-activo' : 'estado-inactivo' ?>">

@@ -19,6 +19,8 @@ body {
 }
 
 /* SIDEBAR --------------------------------------------------------------------*/
+
+
 .sidebar {
   width: 250px;
   background-color: rgb(255, 255, 255);
@@ -32,7 +34,13 @@ body {
 
 .sidebar img {
   width: 150px;
- height: auto;
+  height: auto;
+  margin-bottom: 10px; /* espacio entre imagen y texto */
+}
+
+.logo_athenas_header {
+  width: 150px;     /* más grande */
+  height: auto;
   margin-bottom: 10px; /* espacio entre imagen y texto */
 }
 
@@ -44,18 +52,19 @@ body {
 
 .nav-panel a {
   text-decoration: none;
-  color: #222;
+  color: #333;
   padding: 10px;
-  border-radius: 8px;
-  transition: all 0.3s;
-  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.3s;
 }
 
 .nav-panel a:hover {
   background-color: rgba(0, 0, 0, 0.08);
 }
 
-/* === CONTENT === */
+/*----------------------------------------------------------------------*/
+
+/* CONTENIDO PRINCIPAL */
 .content {
   flex-grow: 1;
   padding: 40px;
@@ -75,12 +84,15 @@ body {
 .title_header {
   font-size: 2rem;
   color: #000;
-  text-align: center;
 }
 
-/* === MAIN CONTENT === */
+
+/*----------------------------------------------------------------------*/
+
+/* === MAIN === */
 .main-content {
   flex-grow: 1;
+  padding: 30px;
 }
 
 /* === MODAL Y CONTENIDO === */
@@ -110,7 +122,7 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-/* Eliminamos el botón de cierre visualmente */
+/* Eliminamos el botón de cierre visualmente -------------------------*/
 .close {
   display: none;
 }
@@ -120,14 +132,14 @@ body {
   color: black;
 }
 
-/* === REPORT CONTAINER === */
+/* === REPORT CONTAINER ===------------- */
 .report-container {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-/* === PARTE SUPERIOR: TÍTULO, FILTROS, RESUMEN === */
+/* === PARTE SUPERIOR: TÍTULO, FILTROS, RESUMEN ===-------------- */
 .report-top {
   display: flex;
   justify-content: space-between;
@@ -211,4 +223,30 @@ body {
 canvas {
   width: 100% !important;
   height: auto !important;
+}
+
+/*ESTILOS PARA BOTON WHATSAPP FLOTANTE ------------------------------*/
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float img {
+  width: 35px;
+  height: 35px;
 }
