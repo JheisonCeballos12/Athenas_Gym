@@ -1,4 +1,4 @@
-/* RESET -----------------------------------------------------------------------*/
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -13,102 +13,11 @@ body {
   display: flex;
 }
 
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* SIDEBAR --------------------------------------------------------------------*/
-
-
-.sidebar {
-  width: 250px;
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-  border-right: 1px solid #ccc;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-
-.sidebar img {
-  width: 150px;
-  height: auto;
-  margin-bottom: 10px; /* espacio entre imagen y texto */
-}
-
-.logo_athenas_header {
-  width: 150px;     /* más grande */
-  height: auto;
-  margin-bottom: 10px; /* espacio entre imagen y texto */
-}
-
-.nav-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.nav-panel a {
-  text-decoration: none;
-  color: #333;
-  padding: 10px;
-  border-radius: 6px;
-  transition: background-color 0.3s;
-}
-
-.nav-panel a:hover {
-  background-color: rgba(0, 0, 0, 0.08);
-}
-
-/*----------------------------------------------------------------------*/
-
-/* CONTENIDO PRINCIPAL */
-.content {
-  flex-grow: 1;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-}
-
-.top-header {
-  background: rgba(255,255,255,0.3);
-  backdrop-filter: blur(10px);
-  padding: 20px 30px;
-  border-radius: 15px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.title_header {
-  font-size: 2rem;
-  color: #000;
-}
-
-
-/*----------------------------------------------------------------------*/
-
 /* === MAIN === */
 .main-content {
   flex-grow: 1;
-  padding: 30px;
-}
-
-/* === MODAL Y CONTENIDO === */
-/* === MODAL (CONVERTIDO A SECCIÓN ESTÁTICA) === */
-.modal {
-  display: block; /* Siempre visible */
-  position: relative;
-  z-index: auto;
-  padding-top: 0;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  background-color: white;
-  margin-bottom: 50px; /* Espacio inferior opcional */
+  padding: 20px;
+  
 }
 
 .modal-content {

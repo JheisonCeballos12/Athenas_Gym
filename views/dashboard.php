@@ -1,7 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../Login/login.php"); 
+    header("Location: /Athenas_Gym/Login/login.php");
+ 
     exit();
 }
 include("../connection/connection.php");
@@ -22,12 +23,6 @@ include("../connection/connection.php");
 
   <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
    <?php include("../partials/sidebar.php"); ?>
-    
-    <!-- CONTENT -->
-    <div class="content">
-      <header class="top-header">
-        <h1 class="title_header">𝐀𝐓𝐇𝐄𝐍𝐀𝐒 𝐆𝐘𝐌</h1>
-      </header>
 
     <!-- Frases motivacionales -->
     <div class="motivational-container">

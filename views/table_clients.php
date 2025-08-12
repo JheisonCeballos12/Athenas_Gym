@@ -10,20 +10,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes Athenas Gym</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
   <link rel="stylesheet" href="../styles/style_tables.css" />
 </head>
 <body>
+
   <div class="layout">
     
     <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
    <?php include("../partials/sidebar.php"); ?>
-
-
-    <!-- CONTENT--------------------------------------------------------------------------------------------------------- -->
-    <div class="content">
-      <header class="top-header">
-        <h1 class="title_header">𝐀𝐓𝐇𝐄𝐍𝐀𝐒 𝐆𝐘𝐌</h1>
-      </header>
 
 
       <main>
@@ -37,7 +32,7 @@
               <?php endif; ?>
 
               <h1 class="title_main">
-                <?= $cliente ? 'Editar Cliente' : '𝐒𝐔𝐏𝐄𝐑𝐀 𝐓𝐔𝐒 𝐋𝐈𝐌𝐈𝐓𝐄𝐒 𝐀𝐐𝐔𝐈 𝐘 𝐀𝐇𝐎𝐑𝐀' ?>
+                <?= $cliente ? 'Editar Cliente' : 'CREAR CLIENTE' ?>
               </h1>
 
               <div class="input_with_icon">
@@ -66,7 +61,8 @@
               </div>
 
               <div class="input_with_icon">
-                <input type="date" name="fecha_nacimiento" required value="<?= $cliente['fecha_nacimiento'] ?? '' ?>">
+                <label class="label_nacimiento"for="fecha_nacimiento">Fecha de nacimiento</label>
+                <input type="date" name="fecha_nacimiento" placeholder="fecha de nacimiento" required value="<?= $cliente['fecha_nacimiento'] ?? '' ?>" >
                 <i class="fa-solid fa-calendar-days"></i>
               </div>
 
@@ -102,6 +98,9 @@
                 <i class="fa-solid fa-users"></i>
               </div>
 
+           
+
+
               <div class="input_with_icon">
                 <select name="plan_id" required>
                   <option value="">Seleccione Plan</option>
@@ -127,6 +126,7 @@
             <div class="search-group">
 
             <!-- SECCION DE FILTROS ------------------------------------------------------------------------>
+             <!-- FILTRO PARA BUSCAR NOMBRE APELLIDO EN LA TABLA? ------------------------------------------------------------------------>
 
                   <form method="GET" action="">
                     <input type="text" name="busqueda" placeholder="Buscar por nombre, apellido, cédula o celular" value="<?= htmlspecialchars($busqueda) ?>">
@@ -175,55 +175,55 @@
               <th>Valor pagado</th>
               <th>Acciones</th>
             </tr>
-            <?php while($row = $resultado->fetch_assoc()): ?>
-              
+
               <?php
-
-                $hoy = date('Y-m-d');
-                $mensualidadEstado = '—';
-                if (!empty($row['fecha_vencimiento'])) {
-                    $mensualidadEstado = ($row['fecha_vencimiento'] >= $hoy) ? 'VIGENTE' : 'VENCIDA';
-                }
-
-                // FILTRAR POR ESTADO
-                if ($estado_filtro === '1' && !$row['estado']) {
-                    continue;
-                }
-                if ($estado_filtro === '0' && $row['estado']) {
-                    continue;
-                }
-
-                // FILTRAR POR VIGENCIA
-                  if ($vigencia_filtro === 'vigente' && $mensualidadEstado !== 'VIGENTE') {
-                          continue;
-                }
-                  if ($vigencia_filtro === 'vencida' && $mensualidadEstado !== 'VENCIDA') {
-                          continue;
-                }
-                $meses = $ventas[$row['id']]['meses'] ?? '—';
-                $valor = $ventas[$row['id']]['valor'] ?? '—';
+                $contador = 1; // empieza en 1
+                
               ?>
 
+            <?php while($row = $resultado->fetch_assoc()): ?>
+              <?php
+        // Calcular vigencia aquí para que siempre exista
+        if (!empty($row['fecha_vencimiento']) && $row['fecha_vencimiento'] >= date('Y-m-d')) {
+            $mensualidadEstado = 'VIGENTE';
+        } else {
+            $mensualidadEstado = 'VENCIDA';
+        }
+
+        // Obtener meses y valor si existen
+        $meses = isset($ventas[$row['id']]['meses']) ? $ventas[$row['id']]['meses'] : '—';
+        $valor = isset($ventas[$row['id']]['valor']) ? $ventas[$row['id']]['valor'] : '—';
+    ?>
+              
               <!-- AQUI LLEGA TODA LA INFORMACION JUNTO A LOS BOTONES -------------------------------------------------------------------------------------->
               <tr>
-                <td><?= $row['id'] ?></td>
+                <td><?= $contador++ ?></td>
                 <td><?= htmlspecialchars($row['nombres']) ?></td>
                 <td><?= htmlspecialchars($row['apellidos']) ?></td>
                 <td><?= htmlspecialchars($row['identidad']) ?></td>
                 <td>
-                  <?= htmlspecialchars($row['telefono']) ?>
-                  <?php if ($mensualidadEstado === 'VENCIDA' && !empty($row['telefono'])): ?>
-                    <a
-                      href="https://wa.me/57<?= $row['telefono'] ?>?text=Hola%20<?= urlencode($row['nombres']) ?>,%20tu%20plan%20en%20Athenas%20Gym%20ha%20vencido.%20¿Deseas%20renovarlo?"
-                      target="_blank"
-                      title="Enviar WhatsApp"
-                      style="margin-left: 6px;"
-                    >
-                      <i class="fab fa-whatsapp" style="color: green; font-size: 20px;"></i>
-                    </a>
-                  <?php endif; ?>
-                </td>
+              <?php if (!empty($row['telefono'])): ?>
+                  <?php
+                    $telefono = $row['telefono'];
+                    $nombre = $row['nombres'];
+                    $mensaje = "Hola $nombre, tu plan en Athenas Gym ha vencido. ¿Deseas renovarlo?";
+                    $urlWhatsapp = 'https://wa.me/57' . $telefono;
 
+
+                    if ($mensualidadEstado === 'VENCIDA') {
+                      $urlWhatsapp .= '?text=' . urlencode($mensaje);
+                    }
+                  ?>
+                  <a
+                    href="<?= $urlWhatsapp ?>"
+                    target="_blank"
+                    title="Enviar WhatsApp"
+                    style="margin-left: 6px;"
+                  >
+                    <i class="fab fa-whatsapp" style="color: green; font-size: 20px;"></i>
+                    <?= $telefono ?>
+                  </a>
+              <?php endif; ?>
                 <td><?= htmlspecialchars($row['direccion']) ?></td>
                 <td><?= htmlspecialchars($row['fecha_nacimiento']) ?></td>
                 <td class="<?= $row['estado'] ? 'estado-activo' : 'estado-inactivo' ?>">

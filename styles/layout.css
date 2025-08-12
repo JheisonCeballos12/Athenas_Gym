@@ -1,0 +1,80 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: url(../images/fondo_body.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+  display: flex;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/*----------------------------------------------------------------------*/
+
+/* SIDEBAR */
+.sidebar {
+  width: 200px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: start;
+}
+
+.title_sidebar {
+  font-size: 1.2rem;
+  color: #000;
+  
+}
+.sidebar img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 10px; /* espacio entre imagen y texto */
+  text-align: center;
+}
+
+
+.logo_athenas_header {
+  width: 150px;     /* más grande */
+  height: auto;
+  margin-bottom: 10px; /* espacio entre imagen y texto */
+}
+
+.nav-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-panel a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.nav-panel a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/*----------------------------------------------------------------------*/
+
+/* CONTENIDO PRINCIPAL */
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+

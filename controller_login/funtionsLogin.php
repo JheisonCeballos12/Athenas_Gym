@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         $_SESSION['usuario'] = $row['usuarios'];
-        header("Location:../views/index.php");
+        header("Location:../views/dashboard.php");
         exit();
     } else {
         header("Location: ../Login/login.php?toast=Usuario o contraseña incorrectos.&type=error");

@@ -28,20 +28,20 @@ if (mysqli_query($conn, $sql)) {
     echo "Error al actualizar mensualidades: " . mysqli_error($conn);
 }
 
-//------------------------------------------------------------------------------------------------
+//FUNCIÓN EDITAR CLIENTE ------------------------------------------------------------------------------------------------
 
-
-// FUNCIÓN EDITAR CLIENTE
 $cliente = null;
 if (isset($_POST['edit_id'])) {
     $id = intval($_POST['edit_id']);
     $sql_edit = "SELECT * FROM clientes WHERE id = $id";
     $result_edit = $conn->query($sql_edit);
-    $cliente = $result_edit->fetch_assoc();
+    $cliente = $result_edit->fetch_assoc();    
 }
-//------------------------------------------------------------------------------------------------
+    
+//---------------------------------------------------------------------------FILTROS-------------------------------------------------------------
 
-// FILTRO DE BÚSQUEDA
+// FILTRO DE BÚSQUEDA---------------------------------------------------------------
+
 $busqueda = isset($_GET['busqueda']) ? trim($_GET['busqueda']) : '';
 $estado_filtro = isset($_GET['estado_filtro']) ? $_GET['estado_filtro'] : '';
 $vigencia_filtro = isset($_GET['vigencia_filtro']) ? $_GET['vigencia_filtro'] : '';
@@ -66,9 +66,43 @@ if ($estado_filtro !== '') {
 
 $resultado = $conn->query($sql);
 
-//------------------------------------------------------------------------------------------------
+//------------------------------------------FILTRAR POR ESTADO----------------------FILTRAR POR VIGENCIA--------------
 
-// ÚLTIMAS VENTAS POR CLIENTE
+function pasarFiltros($row, $estado_filtro, $vigencia_filtro) {
+    $hoy = date('Y-m-d');
+    $mensualidadEstado = '—';
+
+    if (!empty($row['fecha_vencimiento'])) {
+        $mensualidadEstado = ($row['fecha_vencimiento'] >= $hoy) ? 'VIGENTE' : 'VENCIDA';
+    }
+
+    // filtro estado
+    if ($estado_filtro === '1' && !$row['estado']) {
+        return false;
+    }
+    if ($estado_filtro === '0' && $row['estado']) {
+        return false;
+    }
+
+    //filtro vigencia
+    if ($vigencia_filtro === 'vigente' && $mensualidadEstado !== 'VIGENTE') {
+        return false;
+    }
+    if ($vigencia_filtro === 'vencida' && $mensualidadEstado !== 'VENCIDA') {
+        return false;
+    }
+
+    // Si pasó todos los filtros, devuelvo también el estado calculado
+    return [
+        'estado' => $mensualidadEstado
+    ];
+     
+}
+
+
+
+//ÚLTIMAS VENTAS POR CLIENTE------------------------------------------------------------------------------------------------
+
 $sql_ventas = "
     SELECT u.cliente_id, u.plan_id, u.valor, p.meses
     FROM inscripciones u
@@ -79,9 +113,9 @@ $sql_ventas = "
 ";
 $resultado_ventas = $conn->query($sql_ventas);
 
-//------------------------------------------------------------------------------------------------
 
-// ACTUALIZAR FECHA DE VENCIMIENTO DE CADA CLIENTE
+//ACTUALIZAR FECHA DE VENCIMIENTO DE CADA CLIENTE------------------------------------------------------------------------------------------------
+
 $sql_fecha = "
     SELECT c.id, MAX(i.fecha_venta) AS ultima_fecha, p.meses
     FROM clientes c
@@ -104,9 +138,8 @@ while ($fila = $result_fecha->fetch_assoc()) {
 }
 
 
-//------------------------------------------------------------------------------------------------
+//GRAFICA DE VENTAS------------------------------------------------------------------------------------------------
 
-// MAPEAR VENTAS
 $ventas = [];
 while ($v = $resultado_ventas->fetch_assoc()) {
     $ventas[$v['cliente_id']] = [
@@ -115,15 +148,15 @@ while ($v = $resultado_ventas->fetch_assoc()) {
     ];
 }
 
-//------------------------------------------------------------------------------------------------
 
-// CLIENTES Y PLANES PARA MODAL VENTA
+//CLIENTES Y PLANES PARA MODAL VENTA------------------------------------------------------------------------------------------------
+
 $result_clientes = $conn->query("SELECT id, nombres, apellidos FROM clientes");
 $result_planes = $conn->query("SELECT id, nombre, valor FROM planes");
 
-//------------------------------------------------------------------------------------------------
 
-//CUMPLEAÑOS 
+//CUMPLEAÑOS ------------------------------------------------------------------------------------------------
+
 if (!isset($_SESSION['cumple_felicitado'])) {
    // include("../controllers/cumpleaneros.php"); // Este archivo debe buscar cumpleañeros de hoy
     $_SESSION['cumple_felicitado'] = true;
@@ -144,6 +177,9 @@ if ($resultado_c->num_rows > 0) {
     }
 }
 
+
 ?>
+
+
 
 
