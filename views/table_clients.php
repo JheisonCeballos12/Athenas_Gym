@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes Athenas Gym</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../styles/style_tables.css" />
 </head>
 <body>
@@ -241,14 +241,15 @@
                   <button class="button_edit" type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar</button>
                   <button type="button" onclick="abrirModalVenta(<?= $row['id'] ?>)">Renovar Plan</button>
 
-                  <form action="../controller/delete.php" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro?');">
+                  <form action="../controller/delete.php" method="POST" class="form-delete" style="display:inline;">
                       <input type="hidden" name="id" value="<?= $row['id'] ?>">
                       <input type="hidden" name="nuevo_estado" value="<?= $row['estado'] ? 0 : 1 ?>">
                       <button type="submit"
                         class="<?= $row['estado'] ? 'button_deactivate' : 'button_activate' ?>">
                         <?= $row['estado'] ? 'desactivar' : 'Activar' ?>
                       </button>
-                    </form>
+                  </form>
+
 
                 </td>
 

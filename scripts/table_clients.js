@@ -88,3 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// ------------------- NOTIFICACION PARA CONFIRMAR ACTIVAR O DESACTIVAR----------------------------------
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".form-delete").forEach(function(form) {
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita el envío automático
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción cambiará el estado del cliente",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, continuar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Envía el formulario si confirmó
+                }
+            });
+        });
+    });
+});
+

@@ -10,20 +10,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            header("Location: ../views/table_clients.php?toast=" . urlencode("✅ Cliente eliminado"));
+            header("Location: ../views/table_plan.php?toast=" . urlencode("✅ Cliente eliminado"));
             exit();
         } else {
-            header("Location: ../views/table_clients.php?toast=" . urlencode("❌ Error al eliminar el cliente"));
+            header("Location: ../views/table_plan.php?toast=" . urlencode("❌ Error al eliminar el cliente"));
             exit();
         }
 
         $stmt->close();
     } else {
-        header("Location: ../views/table_clients.php?toast=" . urlencode("⚠️ ID inválido"));
+        header("Location: ../views/table_plan.php?toast=" . urlencode("⚠️ ID inválido"));
         exit();
     }
 } else {
-    header("Location: ../views/table_clients.php?toast=" . urlencode("⚠️ ID no recibido"));
+    header("Location: ../views/table_plan.php?toast=" . urlencode("⚠️ ID no recibido"));
     exit();
 }
 

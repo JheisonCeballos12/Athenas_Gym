@@ -86,7 +86,7 @@
                   <button class="button_edit" type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar</button>
 
                   
-                  <form action="../controller/delete_plan.php" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro?');">
+                  <form action="../controller_table_plan/delete.php" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro?');">
                     <input type="hidden" name="id" value="<?= $row['id'] ?>">
                     <button type="submit" id="button_delete">Eliminar</button>
                   </form>

@@ -11,13 +11,18 @@ body {
   background-size: cover;
   color: #333;
   display: flex;
+  min-height: 100vh;
 }
 
+.layout{
+  width: 100%;
+}
 /* === MAIN === */
 .main-content {
   flex-grow: 1;
   padding: 20px;
-  
+  width: 100%;
+  display: flex;
 }
 
 .modal-content {
@@ -25,30 +30,32 @@ body {
   margin: auto;
   padding: 20px;
   border: none;
-  width: 95%;
-  max-width: 1200px;
+  width: 100%;
+  height: 100%;
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Eliminamos el botón de cierre visualmente -------------------------*/
+/* Eliminamos el botón de cierre visualmente */
 .close {
   display: none;
 }
-
 
 .close:hover {
   color: black;
 }
 
-/* === REPORT CONTAINER ===------------- */
+/* === REPORT CONTAINER === */
 .report-container {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  flex: 1;
 }
 
-/* === PARTE SUPERIOR: TÍTULO, FILTROS, RESUMEN ===-------------- */
+/* === PARTE SUPERIOR: TÍTULO, FILTROS, RESUMEN === */
 .report-top {
   display: flex;
   justify-content: space-between;
@@ -134,7 +141,7 @@ canvas {
   height: auto !important;
 }
 
-/*ESTILOS PARA BOTON WHATSAPP FLOTANTE ------------------------------*/
+/* BOTÓN WHATSAPP FLOTANTE */
 .whatsapp-float {
   position: fixed;
   width: 60px;
