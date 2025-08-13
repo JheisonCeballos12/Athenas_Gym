@@ -14,16 +14,14 @@ body {
   display: flex;
 }
 
-.layout{
-  width: 100%;
-}
-/*----------------------------------------------------------------------*/
+/*----------------------------------MAIN ------------------------------------*/
 
-/* MAIN */
 main {
-  flex-grow: 1;
-  padding: 30px;
-}
+width: 100%;
+
+margin-left: 220px;
+
+} 
 
 .title_main{
   font-size: 1.5rem;
@@ -31,9 +29,8 @@ main {
   color: #000;
 }
 
-/*----------------------------------------------------------------------*/
+/*----------------------------------FORM MODAL------------------------------------*/
 
-/* FORM MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -53,7 +50,7 @@ main {
 
 
 .modal-content {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(255, 255, 255);
   padding: 30px;
   border-radius: 10px;
   width: 100%;
@@ -123,9 +120,8 @@ main {
   background-color: #333;
 }
 
-/*----------------------------------------------------------------------*/
+/*----------------------------------BOTONES PARA MODAL Y VENTA------------------------------------*/
 
-/* BOTONES PARA MODAL Y VENTA */
 #openModalBtn,
 #openVentaBtn {
   background-color: #006fe5;
@@ -143,20 +139,19 @@ main {
   background-color: #0056b3;
 }
 
-/*----------------------------------------------------------------------*/
+/*---------------------------------ENCABEZADO LATERAL Y BÚSQUEDA -------------------------------------*/
 
-/* ENCABEZADO LATERAL Y BÚSQUEDA */
 .side-header {
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.272);
   backdrop-filter: blur(20px);
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 20px;
   flex-shrink: 0;
+  padding: 20px;
 }
 
 .side-header .header-controls {
@@ -171,6 +166,24 @@ main {
   display: flex;
   gap: 10px;
 }
+
+@media (max-width: 768px) {
+  .side-header .search-group form {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  #openModalBtn, #openVentaBtn {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
 
 .side-header .search-group input,
 .side-header .search-group select {
@@ -213,13 +226,58 @@ main {
   background-color: #333;
 }
 
-/*----------------------------------------------------------------------*/
+/*--------------------------------TABLA CLIENTES--------------------------------------*/
 
-/* TABLA CLIENTES */
 .table-container {
   flex: 1;
   overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch; /* scroll suave en móviles */
 }
+@media (max-width: 768px) {
+  .table-container table,
+  .table-container thead,
+  .table-container tbody,
+  .table-container th,
+  .table-container td,
+  .table-container tr {
+    display: block;
+    width: 100%;
+  }
+
+  .table-container thead {
+    display: none; /* Ocultar encabezado */
+  }
+
+  .table-container tr {
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .table-container td {
+    text-align: left;
+    padding-left: 50%;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    white-space: normal;
+  }
+
+  .table-container td::before {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 45%;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #333;
+    content: attr(data-label);
+  }
+}
+
 
 .title_table{
   color: #000;
@@ -229,7 +287,7 @@ main {
 .table-container table {
   width: 100%;
   border-collapse: collapse;
-  background-color: rgba(255, 255, 255, 0.757);
+  background-color: rgb(255, 255, 255);
   backdrop-filter: blur(6px);
   border-radius: 10px;
   overflow: hidden;
@@ -265,9 +323,9 @@ main {
   }
 }
 
-/*----------------------------------------------------------------------*/
 
-/* BOTÓN ACTUALIZAR */
+/*--------------------------------BOTÓN ACTUALIZAR--------------------------------------*/
+
 .table-container button {
   padding: 6px 12px;
   border: none;
@@ -283,9 +341,9 @@ main {
   background-color: #333;
 }
 
-/*----------------------------------------------------------------------*/
 
-/* BOTÓN EDITAR */
+/*-----------------------------------BOTÓN EDITAR-----------------------------------*/
+
 .table-container .button_edit {
   background-color: #e0dd03 !important;
   color: #000 !important;
@@ -296,9 +354,9 @@ main {
   background-color: #c5be02 !important;
 }
 
-/*----------------------------------------------------------------------*/
 
-/* BOTÓN ELIMINAR */
+/*-----------------------------------BOTÓN ELIMINAR-----------------------------------*/
+
 #button_delete {
   background-color: #00982b;
   color: rgb(0, 0, 0);
@@ -309,9 +367,9 @@ main {
   background-color: red;
 }
 
-/*----------------------------------------------------------------------*/
+/*----------------------------------BOTÓN ACTIVAR ------------------------------------*/
 
-/* BOTÓN ACTIVAR */
+
 .button_activate {
   background-color: #38a169 !important;
   color: white !important;
@@ -327,7 +385,9 @@ main {
   background-color: #2f855a !important;
 }
 
-/* BOTÓN INACTIVAR */
+
+/*----------------------------------BOTÓN INACTIVAR ------------------------------------*/
+
 .button_deactivate {
   background-color: #e53e3e !important;
   color: white !important;
@@ -413,7 +473,6 @@ main {
   top: 50%;        /* A la mitad vertical */
   left: 50%;       /* A la mitad horizontal */
   transform: translate(-50%, -50%); /* Ajusta el punto central */
-  
   background: rgba(255, 255, 255, 0.493);
   color: rgb(0, 0, 0);
   padding: 80px 120px;

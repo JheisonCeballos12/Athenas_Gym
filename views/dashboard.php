@@ -19,8 +19,6 @@ include("../connection/connection.php");
 </head>
 <body>
 
-  <div class="layout">
-
   <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
    <?php include("../partials/sidebar.php"); ?>
 

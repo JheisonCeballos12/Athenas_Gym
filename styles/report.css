@@ -17,16 +17,17 @@ body {
 .layout{
   width: 100%;
 }
+
 /* === MAIN === */
 .main-content {
-  flex-grow: 1;
-  padding: 20px;
-  width: 100%;
-  display: flex;
+  margin-left: 280px; /* igual al ancho de la sidebar */
+  padding: px;
+  width: calc(100% - 200px);
 }
 
+
 .modal-content {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.783);
   margin: auto;
   padding: 20px;
   border: none;
@@ -36,15 +37,6 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-}
-
-/* Eliminamos el botón de cierre visualmente */
-.close {
-  display: none;
-}
-
-.close:hover {
-  color: black;
 }
 
 /* === REPORT CONTAINER === */
@@ -139,6 +131,58 @@ body {
 canvas {
   width: 100% !important;
   height: auto !important;
+}
+
+/* === TABLA DE VENTAS === */
+.table-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#ventasTable {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+#ventasTable thead {
+  background-color: #0073ff;
+  color: white;
+}
+
+#ventasTable th,
+#ventasTable td {
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+#ventasTable tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+#ventasTable tbody tr:hover {
+  background-color: rgba(0, 115, 255, 0.1);
+  cursor: pointer;
+}
+
+/* Ajuste DataTables */
+.dataTables_wrapper {
+  margin-top: 20px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin: 0 2px;
+  border: none;
+  background: #0073ff;
+  color: white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #0056b3;
 }
 
 /* BOTÓN WHATSAPP FLOTANTE */

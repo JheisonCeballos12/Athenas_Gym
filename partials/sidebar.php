@@ -7,6 +7,7 @@
     <a href="table_plan.php"><i class="fa-solid fa-dumbbell"></i> Planes</a>
     <a href="table_report.php"><i class="fa-solid fa-chart-line"></i> Reportes</a>
     <a href="../Login/login.php"><i class="fa-solid fa-door-open"></i> Cerrar sesión</a>
+    <a href="../Login/create_users.php" style="color: blue; text-decoration: underline;">Crear cuenta nueva</a>
   </nav>
 </aside>
  
@@ -14,4 +15,4 @@
 <a href="https://wa.me/573186402499?text=Hola%20quiero%20más%20información" class="whatsapp-float" target="_blank">
   <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" />
 </a>
-<link rel="stylesheet" href="../styles/layout.css">
+<link rel="stylesheet" href="../styles/sidebar.css">

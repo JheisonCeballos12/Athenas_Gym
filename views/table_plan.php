@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="../styles/style_tables.css" />
 </head>
 <body>
-  
-  <div class="layout">
 
-    <!------------ SIDEBAR ------------------------------- -->
-    <?php include("../partials/sidebar.php"); ?>
+ <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
+   <?php include("../partials/sidebar.php"); ?>
+  
+  
 
       <main>
         <!-- MODAL FORM -->
@@ -98,7 +98,6 @@
         </div>
       </main>
     </div>
-  </div>
 
   <script src="../scripts/table_plan.js"></script>
 

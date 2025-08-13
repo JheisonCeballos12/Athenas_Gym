@@ -22,7 +22,7 @@ body {
 
 /* SIDEBAR */
 .sidebar {
-  width: 200px;
+  width: 220px;
   background-color: rgb(255, 255, 255);
   padding: 20px;
   border-right: 1px solid #ccc;
@@ -30,6 +30,11 @@ body {
   flex-direction: column;
   gap: 20px;
   text-align: start;
+  position: fixed; /* Fija la barra */
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
 }
 
 .title_sidebar {
@@ -72,9 +77,11 @@ body {
 /*----------------------------------------------------------------------*/
 
 /* CONTENIDO PRINCIPAL */
-.content {
+.main-content {
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
+  margin-left: 200px; /* Igual al ancho de la sidebar */
+  min-height: 100vh;
+  background-color: rgba(255, 255, 255, 0.49); /* opcional */
 }
 

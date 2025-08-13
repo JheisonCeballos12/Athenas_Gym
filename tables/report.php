@@ -47,4 +47,14 @@ foreach ($duraciones as $dur) {
     $row = $res->fetch_assoc();
     $ventas_planes[] = $row['total'] ?? 0;
 }
+
+//----------------------------------Tabla de ventas ----------------------------------------
+ $sql = "
+                  SELECT i.id, c.nombres, c.apellidos, p.nombre AS plan, p.meses, i.fecha_venta, i.valor
+                  FROM inscripciones i
+                  INNER JOIN clientes c ON i.cliente_id = c.id
+                  INNER JOIN planes p ON i.plan_id = p.id
+                  ORDER BY i.fecha_venta DESC
+              ";
+              $result = $conn->query($sql);
 ?>

@@ -8,10 +8,7 @@
 </head>
 <body>
 
-  <!-- Fondo oscuro del modal -->
   <div class="modal">
-
-    <!-- Contenedor del formulario -->
     <div class="modal-login">
       <h2>𝐋𝐎𝐆𝐈𝐍</h2>
       <form action="../controller_login/funtionsLogin.php" method="POST">
@@ -22,11 +19,17 @@
         <input type="password" name="contrasena" id="contrasena" required>
 
         <button type="submit">Ingresar</button>
+        <div style="text-align:center; margin-top: 15px;">
+    </div>
+
       </form>
+
+      <p>
+        <a href="reset_password_views.php">¿Olvidaste tu contraseña?</a>
+      </p>
     </div>
   </div>
-  
-  <!--TOAST-->
+
   <?php include("../partials/toast.php"); ?>
 </body>
 </html>

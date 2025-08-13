@@ -1,3 +1,17 @@
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: url(../images/fondo_body.jpg) no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+}
 /* Fondo oscuro semi-transparente */
 .modal{
   position: fixed;
@@ -5,7 +19,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.925); /* Fondo negro con opacidad */
+  background: rgba(153, 150, 150, 0.26); /* Fondo negro con opacidad */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +28,7 @@
 
 /* Modal centrado tipo glassmorphism */
 .modal-login {
-  background: rgba(255, 255, 255, 0.603);
+  background: rgba(255, 255, 255, 0.172);
   backdrop-filter: blur(20px);
   border-radius: 15px;
   padding: 45px;

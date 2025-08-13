@@ -15,17 +15,17 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
 </head>
 <body>
-  
-<div class="layout">
-    <!-- Sidebar -->
-    <?php include("../partials/sidebar.php"); ?>
+
+ <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
+   <?php include("../partials/sidebar.php"); ?>
+
 
     <main class="main-content">
       <div class="modal-content">
          <div class="report-container">
 
             <!-- Parte superior: Título, filtros y resumen -->
-            <div class="report-top" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; flex-wrap: wrap;">
+            <div class="report-top">
 
               <div class="filters-section">
                   <h1>📊 Reportes de Ventas</h1>
@@ -52,7 +52,7 @@
             </div>
 
             <!-- Parte inferior: Gráficas -->
-            <div class="chart-row" style="display: flex; justify-content: space-around; gap: 40px; margin-top: 40px; flex-wrap: wrap;">
+            <div class="chart-row">
                 <div class="chart-box">
                   <canvas id="ventasPorMes" width="400" height="300"></canvas>
                 </div>
@@ -65,47 +65,40 @@
             <!-- Tabla de ventas -->
             <div style="margin-top:50px;">
               <h2>📋 Detalle de Ventas</h2>
-              <?php
-              $sql = "
-                  SELECT i.id, c.nombres, c.apellidos, p.nombre AS plan, p.meses, i.fecha_venta, i.valor
-                  FROM inscripciones i
-                  INNER JOIN clientes c ON i.cliente_id = c.id
-                  INNER JOIN planes p ON i.plan_id = p.id
-                  ORDER BY i.fecha_venta DESC
-              ";
-              $result = $conn->query($sql);
-              ?>
+            
 
-              <table id="ventasTable" class="display" style="width:100%">
-                  <thead>
-                      <tr>
-                          <th>ID</th>
-                          <th>Cliente</th>
-                          <th>Plan</th>
-                          <th>Meses</th>
-                          <th>Fecha venta</th>
-                          <th>Valor</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <?php while($row = $result->fetch_assoc()): ?>
-                      <tr>
-                          <td><?= $row['id'] ?></td>
-                          <td><?= $row['nombres'] . " " . $row['apellidos'] ?></td>
-                          <td><?= $row['plan'] ?></td>
-                          <td><?= $row['meses'] ?></td>
-                          <td><?= $row['fecha_venta'] ?></td>
-                          <td>$<?= number_format($row['valor']) ?></td>
-                      </tr>
-                      <?php endwhile; ?>
-                  </tbody>
-              </table>
+              <div class="table-container">
+                <table id="ventasTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Plan</th>
+                            <th>Meses</th>
+                            <th>Fecha venta</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                        <?php while($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= $row['id'] ?></td>
+                            <td><?= $row['nombres'] . " " . $row['apellidos'] ?></td>
+                            <td><?= $row['plan'] ?></td>
+                            <td><?= $row['meses'] ?></td>
+                            <td><?= $row['fecha_venta'] ?></td>
+                            <td>$<?= number_format($row['valor']) ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+              </div>
             </div>
 
         </div>
       </div>
     </main>
-</div>
 
 <!-- Pasar datos PHP a JS -->
 <script>

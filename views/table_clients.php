@@ -15,9 +15,7 @@
 </head>
 <body>
 
-  <div class="layout">
-    
-    <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
+ <!-- SIDEBAR --------------------------------------------------------------------------------------------------------->
    <?php include("../partials/sidebar.php"); ?>
 
 
@@ -118,6 +116,9 @@
           </div>
         </div>
 
+
+
+
         <!-- SECCIÓN CON ENCABEZADO -------------------------------------------------------------->
         <div class="side-header">
           <h2 class="title_table">CLIENTES</h2>
@@ -155,6 +156,8 @@
             </div>
           </div>
         </div>
+
+
 
         <!-- VISTA TABLA CLIENTES -------------------------------------------------------------------------------->
         <div class="table-container">
@@ -197,11 +200,11 @@
               
               <!-- AQUI LLEGA TODA LA INFORMACION JUNTO A LOS BOTONES -------------------------------------------------------------------------------------->
               <tr>
-                <td><?= $contador++ ?></td>
-                <td><?= htmlspecialchars($row['nombres']) ?></td>
-                <td><?= htmlspecialchars($row['apellidos']) ?></td>
-                <td><?= htmlspecialchars($row['identidad']) ?></td>
-                <td>
+                <td data-label="id"><?= $contador++ ?></td>
+                <td data-label="nombres">><?= htmlspecialchars($row['nombres']) ?></td>
+                <td data-label="apellidos">><?= htmlspecialchars($row['apellidos']) ?></td>
+                <td data-label="identidad">><?= htmlspecialchars($row['identidad']) ?></td>
+                <td data-label="teléfono">
               <?php if (!empty($row['telefono'])): ?>
                   <?php
                     $telefono = $row['telefono'];
@@ -224,19 +227,19 @@
                     <?= $telefono ?>
                   </a>
               <?php endif; ?>
-                <td><?= htmlspecialchars($row['direccion']) ?></td>
-                <td><?= htmlspecialchars($row['fecha_nacimiento']) ?></td>
-                <td class="<?= $row['estado'] ? 'estado-activo' : 'estado-inactivo' ?>">
+                <td data-label="direccion"><?= htmlspecialchars($row['direccion']) ?></td>
+                <td data-label="fecha_nacimiento"><?= htmlspecialchars($row['fecha_nacimiento']) ?></td>
+                <td data-label="estado" class="<?= $row['estado'] ? 'estado-activo' : 'estado-inactivo' ?>">
                   <?= $row['estado'] ? 'Activo' : 'Inactivo' ?>
                 </td>
                 
                 <?php $clase_mensualidad = ($mensualidadEstado === 'VIGENTE') ? 'estado-vigente' : 'estado-vencida';?>
-                <td class="<?= $clase_mensualidad ?>"><?= $mensualidadEstado ?></td>
+                <td data-label="mensualidad" class="<?= $clase_mensualidad ?>"><?= $mensualidadEstado ?></td>
 
-                <td><?= htmlspecialchars($row['fecha_registro']) ?></td>
-                <td><?= htmlspecialchars($row['fecha_vencimiento'] ?? '—') ?></td>
-                <td><?= htmlspecialchars($meses) ?></td>
-                <td>$<?= htmlspecialchars($valor) ?></td>
+                <td data-label="fecha_registro"><?= htmlspecialchars($row['fecha_registro']) ?></td>
+                <td data-label="fecha_vencimiento"><?= htmlspecialchars($row['fecha_vencimiento'] ?? '—') ?></td>
+                <td data-label="meses"><?= htmlspecialchars($meses) ?></td>
+                <td data-label="valor">$<?= htmlspecialchars($valor) ?></td>
                 <td>
                   <button class="button_edit" type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar</button>
                   <button type="button" onclick="abrirModalVenta(<?= $row['id'] ?>)">Renovar Plan</button>
@@ -260,7 +263,7 @@
         </div>
       </main>
     </div>
-  </div>
+  
 
 <script>
   const cumpleaneros = <?= json_encode($cumpleaneros) ?>;
