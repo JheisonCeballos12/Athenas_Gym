@@ -1,6 +1,7 @@
 <?php
 include("../connection/connection.php");
 
+//--------------------VERIFICO SI LLEGAN LOS DATOS EN METODO POST--------------------
 if (
     isset($_POST['nombres']) &&
     isset($_POST['apellidos']) &&               

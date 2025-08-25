@@ -7,7 +7,7 @@
     <a href="table_plan.php"><i class="fa-solid fa-dumbbell"></i> Planes</a>
     <a href="table_report.php"><i class="fa-solid fa-chart-line"></i> Reportes</a>
     <a href="../Login/login.php"><i class="fa-solid fa-door-open"></i> Cerrar sesión</a>
-    <a href="../Login/create_users.php" style="color: blue; text-decoration: underline;">Crear cuenta nueva</a>
+    <a href="../Login/create_users.php"><i class="fa-solid fa-users"></i>Crear cuenta</a>
   </nav>
 </aside>
  

@@ -469,27 +469,44 @@ margin-left: 220px;
 
 /* ESTILOS PARA LOS MENSAJES MOTIVACIONALES */
 .motivational-container {
-  position: fixed; /* Fijo en pantalla */
-  top: 50%;        /* A la mitad vertical */
-  left: 50%;       /* A la mitad horizontal */
-  transform: translate(-50%, -50%); /* Ajusta el punto central */
-  background: rgba(255, 255, 255, 0.493);
-  color: rgb(0, 0, 0);
-  padding: 80px 120px;
-  border-radius: 12px;
-  font-size: 40px;
-  font-weight: bold;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  max-width: 800px;
+  position: fixed;
+  top: 50%;
+  left: 220px; /* empieza justo después del sidebar */
+  right: 0;     /* permite expandirse hasta el borde derecho */
+  margin: 0 auto; /* centra dentro del espacio restante */
+  transform: translateY(-50%); /* solo centrar verticalmente */
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  padding: 25px 50px;
+  border-radius: 15px;
+  color: #fff;
   text-align: center;
-  animation: fadeIn 1s ease;
+  z-index: 10000;
+  max-width: calc(100% - 240px); /* deja espacio para el sidebar */
+  box-sizing: border-box;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Texto motivacional */
+.motivational-container p {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Ajuste responsive */
+@media (max-width: 768px) {
+  .motivational-container {
+    left: 10px;       /* deja pequeño margen en móvil */
+    right: 10px;      /* ocupa casi todo el ancho */
+    max-width: none;  /* deja que se adapte al tamaño */
+    padding: 20px 30px;
+    transform: translateY(-50%); /* vertical centrado */
+  }
+
+  .motivational-container p {
+    font-size: 2rem;
+  }
 }
 
 

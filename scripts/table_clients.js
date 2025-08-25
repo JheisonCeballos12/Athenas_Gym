@@ -1,96 +1,107 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modal");
-  const modalVenta = document.getElementById("modalVenta");
-  const clienteSelectVenta = document.getElementById("cliente_id_select");
+document.addEventListener("DOMContentLoaded", () => { 
+    const modal = document.getElementById("modal");
+    const modalVenta = document.getElementById("modalVenta");
+    const clienteSelectVenta = document.getElementById("cliente_id_select");
 
-  window.abrirModalEditar = function(clienteId) {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '';
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'edit_id';
-    input.value = clienteId;
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
-  }
-
-  window.abrirModalVenta = function(clienteId) {
-    if (modalVenta) {
-      modalVenta.style.display = "flex";
-      if (clienteSelectVenta) {
-        clienteSelectVenta.value = clienteId;
-      }
+    window.abrirModalEditar = function(clienteId) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '';
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'edit_id';
+        input.value = clienteId;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
     }
-  }
 
-  const openModalBtn = document.getElementById("openModalBtn");
-  if (openModalBtn && modal) {
-    openModalBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-    });
-  }
-
-  const openVentaBtn = document.getElementById("openVentaBtn");
-  if (openVentaBtn && modalVenta) {
-    openVentaBtn.addEventListener("click", () => {
-      modalVenta.style.display = "flex";
-    });
-  }
-
-  const closeBtn = document.querySelector(".close");
-  if (closeBtn && modal) {
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-      window.location.href = "table_clients.php";
-    });
-  }
-
-  const closeVentaBtn = document.querySelector(".close-venta");
-  if (closeVentaBtn && modalVenta) {
-    closeVentaBtn.addEventListener("click", () => {
-      modalVenta.style.display = "none";
-    });
-  }
-
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-      window.location.href = "table_clients.php";
+    window.abrirModalVenta = function(clienteId) {
+        if (modalVenta) {
+            modalVenta.style.display = "flex";
+            if (clienteSelectVenta) {
+                clienteSelectVenta.value = clienteId;
+            }
+        }
     }
-    if (e.target === modalVenta) {
-      modalVenta.style.display = "none";
+
+    const openModalBtn = document.getElementById("openModalBtn");
+    if (openModalBtn && modal) {
+        openModalBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
     }
-  });
 
-  // TOAST DE CUMPLEAÑOS
-  if (window.cumpleaneros && cumpleaneros.length > 0) {
-    cumpleaneros.forEach(nombre => {
-      mostrarToast(`🎉 ¡Hoy está de cumpleaños ${nombre}! 🎂`);
+    const openVentaBtn = document.getElementById("openVentaBtn");
+    if (openVentaBtn && modalVenta) {
+        openVentaBtn.addEventListener("click", () => {
+            modalVenta.style.display = "flex";
+        });
+    }
+
+    const closeBtn = document.querySelector(".close");
+    if (closeBtn && modal) {
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            window.location.href = "table_clients.php";
+        });
+    }
+
+    const closeVentaBtn = document.querySelector(".close-venta");
+    if (closeVentaBtn && modalVenta) {
+        closeVentaBtn.addEventListener("click", () => {
+            modalVenta.style.display = "none";
+        });
+    }
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+            window.location.href = "table_clients.php";
+        }
+        if (e.target === modalVenta) {
+            modalVenta.style.display = "none";
+        }
     });
-  }
 
-  function mostrarToast(mensaje) {
-    Toastify({
-      text: mensaje,
-      duration: 5000,
-      gravity: "top",
-      position: "right",
-      style: {
-        background: "#1abc9c",
-        color: "#fff",
-        borderRadius: "8px",
-        padding: "10px 20px",
-        fontWeight: "bold",
-      }
-    }).showToast();
-  }
-});
+    // TOAST DE CUMPLEAÑOS
+    const toastCss = document.createElement("link");
+    toastCss.rel = "stylesheet";
+    toastCss.href = "https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css";
+    document.head.appendChild(toastCss);
 
-// ------------------- NOTIFICACION PARA CONFIRMAR ACTIVAR O DESACTIVAR----------------------------------
+    const toastScript = document.createElement("script");
+    toastScript.src = "https://cdn.jsdelivr.net/npm/toastify-js";
+    document.head.appendChild(toastScript);
 
-document.addEventListener("DOMContentLoaded", function() {
+    toastScript.onload = () => {
+        fetch('../controller/cumpleaneros.php')
+            .then(res => res.json())
+            .then(cumpleaneros => {
+                if (cumpleaneros.length > 0) {
+                    cumpleaneros.forEach(nombre => mostrarToast(`🎉 ¡Hoy está de cumpleaños ${nombre}! 🎂`));
+                }
+            })
+            .catch(err => console.error("Error cargando cumpleaños:", err));
+
+        function mostrarToast(mensaje) {
+            Toastify({
+                text: mensaje,
+                duration: 5000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#1abc9c",
+                    color: "#fff",
+                    borderRadius: "8px",
+                    padding: "10px 20px",
+                    fontWeight: "bold",
+                }
+            }).showToast();
+        }
+    };
+
+    // ------------------- NOTIFICACION PARA CONFIRMAR ACTIVAR O DESACTIVAR----------------------------------
     document.querySelectorAll(".form-delete").forEach(function(form) {
         form.addEventListener("submit", function(event) {
             event.preventDefault(); // Evita el envío automático
@@ -112,4 +123,3 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-

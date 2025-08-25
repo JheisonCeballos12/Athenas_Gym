@@ -85,16 +85,21 @@
               <h1 class="title_main">Registrar</h1>
 
               <div class="input_with_icon">
-                <select name="cliente_id" id="cliente_id_select" required>
-                  <option value="">Seleccione Cliente</option>
-                  <?php
-                  $result_clientes->data_seek(0);
-                  while($c = $result_clientes->fetch_assoc()): ?>
-                    <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['nombres'] . ' ' . $c['apellidos']) ?></option>
-                  <?php endwhile; ?>
-                </select>
-                <i class="fa-solid fa-users"></i>
-              </div>
+                    <!-- Campo donde el usuario escribe -->
+                    <input list="clientes" name="cliente_id" id="cliente_id" placeholder="Escriba nombre..." required>
+
+                    <!-- Opciones que vienen desde la BD -->
+                    <datalist id="clientes">
+                      <?php
+                      $result_clientes->data_seek(0);
+                      while($c = $result_clientes->fetch_assoc()): ?>
+                        <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['nombres'] . ' ' . $c['apellidos']) ?></option>
+                      <?php endwhile; ?>
+                    </datalist>
+
+                    <i class="fa-solid fa-users"></i>
+                  </div>
+
 
            
 
@@ -201,9 +206,9 @@
               <!-- AQUI LLEGA TODA LA INFORMACION JUNTO A LOS BOTONES -------------------------------------------------------------------------------------->
               <tr>
                 <td data-label="id"><?= $contador++ ?></td>
-                <td data-label="nombres">><?= htmlspecialchars($row['nombres']) ?></td>
-                <td data-label="apellidos">><?= htmlspecialchars($row['apellidos']) ?></td>
-                <td data-label="identidad">><?= htmlspecialchars($row['identidad']) ?></td>
+                <td data-label="nombres"><?= htmlspecialchars($row['nombres']) ?></td>
+                <td data-label="apellidos"><?= htmlspecialchars($row['apellidos']) ?></td>
+                <td data-label="identidad"><?= htmlspecialchars($row['identidad']) ?></td>
                 <td data-label="teléfono">
               <?php if (!empty($row['telefono'])): ?>
                   <?php
@@ -217,6 +222,7 @@
                       $urlWhatsapp .= '?text=' . urlencode($mensaje);
                     }
                   ?>
+          
                   <a
                     href="<?= $urlWhatsapp ?>"
                     target="_blank"
@@ -252,10 +258,7 @@
                         <?= $row['estado'] ? 'desactivar' : 'Activar' ?>
                       </button>
                   </form>
-
-
                 </td>
-
               </tr>
             <?php endwhile; ?>
 
@@ -268,6 +271,7 @@
 <script>
   const cumpleaneros = <?= json_encode($cumpleaneros) ?>;
 </script>
+
 <script src="../scripts/table_clients.js"></script>
 
 

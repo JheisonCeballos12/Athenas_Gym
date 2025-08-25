@@ -10,7 +10,7 @@
 
   <div class="modal">
     <div class="modal-login">
-      <h2>𝐋𝐎𝐆𝐈𝐍</h2>
+      <h2>LOGIN</h2>
       <form action="../controller_login/funtionsLogin.php" method="POST">
         <label for="usuario">Usuario:</label>
         <input type="text" name="usuario" id="usuario" required>
@@ -24,7 +24,7 @@
 
       </form>
 
-      <p>
+      <p class="update_password">
         <a href="reset_password_views.php">¿Olvidaste tu contraseña?</a>
       </p>
     </div>

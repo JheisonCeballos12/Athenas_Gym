@@ -91,12 +91,13 @@ body {
 
 /* === RESUMEN === */
 .summary-section {
-  background-color: rgba(255,255,255,0.85);
+  background-color: rgba(231, 231, 231, 0.671);
   padding: 20px 25px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   min-width: 250px;
   max-width: 320px;
+  font-size: 1.5rem;
 }
 
 .summary-section h2 {
@@ -111,6 +112,13 @@ body {
 }
 
 /* === PARTE INFERIOR: GRÁFICAS === */
+
+.graph_Tables{
+  font-size: 15px;
+  text-align: center;
+
+}
+
 .chart-row {
   display: flex;
   justify-content: center;
@@ -210,3 +218,26 @@ canvas {
   width: 35px;
   height: 35px;
 }
+
+#resumenVentasMes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#resumenVentasMes li {
+  background: #f4f6f9;
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  border: 1px solid #ddd;
+}
+
+#resumenVentasMes li span {
+  font-weight: bold;
+  color: green;
+}
+
