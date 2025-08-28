@@ -11,7 +11,7 @@
 <body>
   <div class="modal">
     <div class="modal-login">
-      <h2>Registrar Usuario</h2>
+      <h2>REGISTRAR USUARIO</h2>
       <form action="../controller_login/create_user.php" method="POST">
         <label for="nombres">Nombre completo:</label>
         <input type="text" name="nombres" id="nombres" required>
@@ -23,10 +23,12 @@
         <input type="password" name="contrasena" id="contrasena" required>
 
         <label for="pin_seguridad">PIN de seguridad:</label>
-        <input type="text" name="pin_seguridad" id="pin_seguridad" maxlength="10" required>
-
+        <input type="password" name="pin_seguridad" id="pin_seguridad" maxlength="10" required>
+        <br> <br>
+        <a class="return_login" href="../views/dashboard.php">volver</a>
         <button type="submit">Registrar</button>
       </form>
+       
     </div>
   </div>
 </body>

@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background: url(../images/fondo_body.jpg) no-repeat center center fixed;
   background-size: cover;
   color: #333;

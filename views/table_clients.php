@@ -77,49 +77,70 @@
         </div>
         
 
-        <!-- MODAL VENDER PLAN ---------------------------------------------------------------------------------------------->
-        <div id="modalVenta" class="modal">
-          <div class="modal-content">
-            <span class="close-venta">&times;</span>
-            <form class="modal_form" action="../controller_usuarios/send_registro.php" method="POST">
-              <h1 class="title_main">Registrar</h1>
+<!-- MODAL VENDER PLAN -->
+<div id="modalVenta" class="modal">
+  <div class="modal-content">
+    <span class="close-venta">&times;</span>
+    <form class="modal_form" action="../controller_usuarios/send_registro.php" method="POST">
+      <h1 class="title_main">Registrar</h1>
 
-              <div class="input_with_icon">
-                    <!-- Campo donde el usuario escribe -->
-                    <input list="clientes" name="cliente_id" id="cliente_id" placeholder="Escriba nombre..." required>
+      <!-- Cliente con buscador -->
+      <div class="input_with_icon">
+        <!-- Campo donde el usuario busca por nombre -->
+        <input list="lista_clientes" id="cliente_nombre" placeholder="Escriba nombre..." autocomplete="off" required>
 
-                    <!-- Opciones que vienen desde la BD -->
-                    <datalist id="clientes">
-                      <?php
-                      $result_clientes->data_seek(0);
-                      while($c = $result_clientes->fetch_assoc()): ?>
-                        <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['nombres'] . ' ' . $c['apellidos']) ?></option>
-                      <?php endwhile; ?>
-                    </datalist>
+        <!-- Campo oculto donde se guarda el id -->
+        <input type="hidden" name="cliente_id" id="cliente_id">
 
-                    <i class="fa-solid fa-users"></i>
-                  </div>
+        <!-- Opciones -->
+        <datalist id="lista_clientes">
+          <?php 
+          $result_clientes->data_seek(0);
+          while($c = $result_clientes->fetch_assoc()): ?>
+            <option data-id="<?= $c['id'] ?>" value="<?= htmlspecialchars($c['nombres'] . ' ' . $c['apellidos']) ?>"></option>
+          <?php endwhile; ?>
+        </datalist>
+        <i class="fa-solid fa-users"></i>
+      </div>
+
+      <!-- Plan -->
+      <div class="input_with_icon">
+        <select name="plan_id" required>
+          <option value="">Seleccione Plan</option>
+          <?php 
+          $result_planes->data_seek(0);
+          while($p = $result_planes->fetch_assoc()): ?>
+            <option value="<?= $p['id'] ?>">
+                <?= htmlspecialchars($p['nombre']) ?> - $<?= number_format($p['valor'], 0, ',', '.') ?>
+              </option>
+
+          <?php endwhile; ?>
+        </select>
+        <i class="fa-solid fa-dumbbell"></i>
+      </div>
+
+      <button class="button_register" type="submit">Registrar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Cuando el usuario elige un nombre, buscamos su id en el datalist
+document.getElementById("cliente_nombre").addEventListener("input", function() {
+  let valor = this.value;
+  let opciones = document.querySelectorAll("#lista_clientes option");
+  let hiddenId = document.getElementById("cliente_id");
+
+  hiddenId.value = ""; // reset
+  opciones.forEach(op => {
+    if (op.value === valor) {
+      hiddenId.value = op.dataset.id; // Guardamos el ID real
+    }
+  });
+});
+</script>
 
 
-           
-
-
-              <div class="input_with_icon">
-                <select name="plan_id" required>
-                  <option value="">Seleccione Plan</option>
-                  <?php
-                  $result_planes->data_seek(0);
-                  while($p = $result_planes->fetch_assoc()): ?>
-                    <option value="<?= $p['id'] ?>"><?= htmlspecialchars($p['nombre']) ?> - $<?= $p['valor'] ?></option>
-                  <?php endwhile; ?>
-                </select>
-                <i class="fa-solid fa-dumbbell"></i>
-              </div>
-
-              <button class="button_register" type="submit">Registrar</button>
-            </form>
-          </div>
-        </div>
 
 
 

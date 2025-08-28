@@ -14,7 +14,7 @@
         <label for="usuario">Usuario:</label>
         <input type="text" name="usuario" id="usuario" required>
 
-        <label for="pin_seguridad">PIN de seguridad:</label>
+        <label for="pin_seguridad">Pin de seguridad:</label>
         <input type="password" name="pin_seguridad" id="pin_seguridad" maxlength="10" required>
 
         <label for="contrasena">Nueva contraseña:</label>
@@ -22,9 +22,10 @@
 
         <label for="contrasena2">Confirmar contraseña:</label>
         <input type="password" name="contrasena2" id="contrasena2" required>
+        <br><br>
 
         <button type="submit">Actualizar</button>
-        <button class="return_login"><a href="login.php">volver</a></button>
+        <a class="return_login" href="../Login/login.php">volver</a>
         
       </form>
     </div>

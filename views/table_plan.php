@@ -24,7 +24,8 @@
 
           <div class="modal-content">
             <span class="close">&times;</span>
-            <form class="modal_form" action="../controller_table_plan/insert.php" method="POST">
+           <form class="modal_form" action="../controller_table_plan/save_plan.php" method="POST">
+
               <?php if ($plan): ?>
                 <input type="hidden" name="id" value="<?= $plan['id'] ?>">
               <?php endif; ?>
@@ -75,12 +76,18 @@
                 <th>Acciones</th>
               </tr>
 
+              <?php
+                $contador = 1; // empieza en 1
+                
+              ?>
+
                <!-- 🔁 Ciclo que recorre los planes -->
               <?php while($row = $resultado->fetch_assoc()): ?>
               <tr>
                 <td><?= $row['id'] ?></td>
                 <td><?= htmlspecialchars($row['nombre']) ?></td>
-                <td><?= htmlspecialchars($row['valor']) ?></td>
+                <td><?= number_format($row['valor'], 0, ',', '.') ?></td>
+
                 <td><?= htmlspecialchars($row['meses']) ?></td>
                 <td>
                   <button class="button_edit" type="button" onclick="abrirModalEditar(<?= $row['id'] ?>)">Editar</button>

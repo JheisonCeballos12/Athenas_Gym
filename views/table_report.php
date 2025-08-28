@@ -87,6 +87,17 @@
                 </div>
             </div>
 
+            <form method="GET" class="filtros">
+              <select name="estado_filtro">
+                <option value="todos" <?= ($estado ?? '') === 'todos' ? 'selected' : '' ?>>Todos</option>
+                <option value="vigentes" <?= ($estado ?? '') === 'vigentes' ? 'selected' : '' ?>>Vigentes</option>
+                <option value="anulados" <?= ($estado ?? '') === 'anulados' ? 'selected' : '' ?>>Anulados</option>
+              </select>
+              <button type="submit">Filtrar</button>
+            </form>
+
+
+
             <!--------------------------- TABLA DE VENTAS------------------------------->
             <div style="margin-top:50px;">
               <h2>📋 Detalle de Ventas</h2>

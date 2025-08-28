@@ -25,23 +25,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cliente_id']) && isse
                         FROM clientes WHERE id = $cliente_id";
         $cliente_antiguo = $conn->query($sql_cliente)->fetch_assoc();
 
-        // 3️⃣ Insertar inscripción con datos anteriores
-        $stmt = $conn->prepare("INSERT INTO inscripciones 
-            (cliente_id, plan_id, valor, mensualidad_anterior, fecha_vencimiento_anterior, meses_plan_anterior, valor_pagado_anterior)
-            VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $mensualidad_ant = $cliente_antiguo['mensualidad'] ?? null;
+        $fecha_venc_ant  = $cliente_antiguo['fecha_vencimiento'] ?? null;
+        $meses_ant       = $cliente_antiguo['meses_del_plan'] ?? 0;
+        $valor_ant       = $cliente_antiguo['valor_pagado'] ?? 0;
+
+        // 3️⃣ Insertar inscripción con estado VIGENTE + datos anteriores
+       $stmt = $conn->prepare("INSERT INTO inscripciones 
+            (cliente_id, plan_id, valor, estado, mensualidad_anterior, fecha_vencimiento_anterior, meses_plan_anterior, valor_pagado_anterior)
+            VALUES (?, ?, ?, 'VIGENTE', ?, ?, ?, ?)");
         $stmt->bind_param(
-            "iidssii",
+            "iiissii",
             $cliente_id,
             $plan_id,
             $valor_plan,
-            $cliente_antiguo['mensualidad'],
-            $cliente_antiguo['fecha_vencimiento'],
-            $cliente_antiguo['meses_del_plan'],
-            $cliente_antiguo['valor_pagado']
+            $mensualidad_ant,
+            $fecha_venc_ant,
+            $meses_ant,
+            $valor_ant
         );
+
         $stmt->execute();
 
-        // 4️⃣ Actualizar cliente
+        // 4️⃣ Actualizar cliente con el nuevo plan
         $fecha_vencimiento_nueva = date('Y-m-d', strtotime("+$duracion_meses months"));
         $stmt2 = $conn->prepare("UPDATE clientes SET 
             mensualidad='VIGENTE', 
@@ -62,6 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cliente_id']) && isse
 } else {
     header("Location: ../views/table_clients.php?toast=faltan_datos&type=error");
     exit();
-    
 }
 ?>
+

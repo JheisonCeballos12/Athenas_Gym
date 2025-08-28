@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
     $id = intval($_POST['id']);
 
     if ($id > 0) {
-        $stmt = $conn->prepare("DELETE FROM clientes WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM planes WHERE id = ?");
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
