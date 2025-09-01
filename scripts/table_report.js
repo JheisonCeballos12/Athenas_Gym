@@ -54,6 +54,7 @@ const mesesES = {
   "Dec": "Diciembre"
 };
 
+
 // Reemplazar los labels en inglés por español
 window.labelsMeses = window.labelsMeses.map(mes => mesesES[mes] || mes);
 
@@ -63,11 +64,14 @@ if (window.labelsMeses.length === 1) {
     resumen = `Total vendido en ${window.labelsMeses[0]}: $${window.ventasMesData[0].toLocaleString()}`;
 } else {
     // Si son todos los meses
-    resumen = "<h3>Totales por mes:</h3><ul>";
-    window.labelsMeses.forEach((mes, i) => {
-        resumen += `<li>${mes} <span>$${window.ventasMesData[i].toLocaleString()}</span></li>`;
-    });
-    resumen += "</ul>";
+    resumen = "<ul><h3>Totales por mes:</h3>";
+window.labelsMeses.forEach((mes, i) => {
+    let valor = window.ventasMesData[i] || 0;
+    resumen += `<li>${mes}: <strong>$${valor.toLocaleString('es-CO')}</strong></li>`;
+
+});
+resumen += "</ul>";
+
 }
 
 document.getElementById("resumenVentasMes").innerHTML = resumen;

@@ -37,8 +37,8 @@
                             <option value="">Todos</option>
                             <?php 
                                 $meses = [
-                                  1 => "Enero", 
-                                  2 => "Febrero", 
+                                  1 => "Enero ", 
+                                  2 => "Febrero ", 
                                   3 => "Marzo", 
                                   4 => "Abril", 
                                   5 => "Mayo", 
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <form method="GET" class="filtros">
+            <form method="GET" class="filters-form">
               <select name="estado_filtro">
                 <option value="todos" <?= ($estado ?? '') === 'todos' ? 'selected' : '' ?>>Todos</option>
                 <option value="vigentes" <?= ($estado ?? '') === 'vigentes' ? 'selected' : '' ?>>Vigentes</option>

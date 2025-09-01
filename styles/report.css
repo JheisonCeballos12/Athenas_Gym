@@ -12,23 +12,22 @@ body {
   color: #333;
   display: flex;
   min-height: 100vh;
+  
 }
 
-.layout{
-  width: 100%;
-}
+
 
 /* === MAIN === */
 .main-content {
   margin-left: 280px; /* igual al ancho de la sidebar */
-  padding: px;
+  
   width: calc(100% - 200px);
 }
 
 
 .modal-content {
   background-color: rgba(255, 255, 255, 0.783);
-  margin: auto;
+  margin: auto;   /* 👈 esto centra el modal y deja espacio arriba/abajo/derecha */
   padding: 20px;
   border: none;
   width: 100%;
@@ -38,6 +37,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+
 
 /* === REPORT CONTAINER === */
 .report-container {
@@ -221,12 +222,14 @@ canvas {
 
 #resumenVentasMes ul {
   list-style: none;
-  padding: 0;
+  padding: 20px;
   margin: 0;
+  background-color: rgb(255, 255, 255) ;
+  border-radius: 10px;
 }
 
 #resumenVentasMes li {
-  background: #f4f6f9;
+  background: #fbfcff;
   margin: 5px 0;
   padding: 8px 12px;
   border-radius: 6px;
@@ -234,6 +237,7 @@ canvas {
   justify-content: space-between;
   font-size: 15px;
   border: 1px solid #ddd;
+  width: 250px;
 }
 
 #resumenVentasMes li span {
