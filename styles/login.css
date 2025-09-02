@@ -28,8 +28,8 @@ body {
 
 /* Modal centrado tipo glassmorphism */
 .modal-login {
-  background: rgba(255, 255, 255, 0.172);
-  backdrop-filter: blur(20px);
+  background: rgba(204, 204, 204, 0.794);
+  backdrop-filter: blur(15px);
   border-radius: 15px;
   padding: 45px;
   color: rgb(0, 0, 0);

@@ -21,131 +21,134 @@
    <?php include("../partials/sidebar.php"); ?>
 
 
-    <main class="main-content">
-      <div class="modal-content">
-         <div class="report-container">
-
-            <!-- TITULO Y FILTRO POR MES ----------->
-            <div class="report-top">
-
-              <div class="filters-section">
-                <h1>📊 Reportes de Ventas</h1>
-                <br><br>
-                    <form method="GET" class="filters-form">
-                        <label for="mes">Filtrar por mes:</label>
-                        <select name="mes" id="mes">
-                            <option value="">Todos</option>
-                            <?php 
-                                $meses = [
-                                  1 => "Enero ", 
-                                  2 => "Febrero ", 
-                                  3 => "Marzo", 
-                                  4 => "Abril", 
-                                  5 => "Mayo", 
-                                  6 => "Junio", 
-                                  7 => "Julio", 
-                                  8 => "Agosto", 
-                                  9 => "Septiembre", 
-                                  10 => "Octubre", 
-                                  11 => "Noviembre", 
-                                  12 => "Diciembre"
-                                ];
-                                ?>
-
-                                <?php for ($i = 1; $i <= 12; $i++) {
-                                    $selected = (isset($_GET['mes']) && $_GET['mes'] == $i) ? 'selected' : '';
-                                    echo "<option value='$i' $selected>{$meses[$i]}</option>";
-                                } ?>
-
-                        </select>
-                        <button type="submit">Filtrar</button>
-
-                    </form>
-              </div>
-            <!------------------ RESUMEN GENERAL------------------->
-              <div class="summary-section">
-                  <h2>Resumen General</h2>
-                  <p><strong>Clientes activos:</strong> <?= $total_activos ?></p>
-                  <p><strong>Total vendido en el año:</strong> $<?= number_format($total_anual) ?></p>
-                  <p><strong>Plan más vendido:</strong> <?= $top_plan['meses_del_plan'] ?> meses (<?= $top_plan['total'] ?> inscripciones)</p>
-              </div>
-
-            </div>
-
-            <!--------------------------- GRAFICA DE TABLAS --------------------------->
-            <div class="chart-row">
-                <div class="chart-box">
-                  <h1 class="graph_Tables">GRAFICA DE BARRAS</h1>
-                  <canvas id="ventasPorMes" width="400" height="300"></canvas>
-                </div>
-
-                 <div id="resumenVentasMes" style="margin-top:20px; font-size:16px; font-weight:bold;"></div>
+    <main>
+      <div id="modal">
               
-                <div class="chart-box">
-                  <h1 class="graph_Tables">GRAFICA DE PASTEL</h1>
-                  <canvas id="ventasPorPlan" width="400" height="300"></canvas>
+          <div class="modal-content">
+            <div class="report-container">
+
+                <!-- TITULO Y FILTRO POR MES ----------->
+                <div class="report-top">
+
+                  <div class="filters-section">
+                    <h1>📊 Reportes de Ventas</h1>
+                    <br><br>
+                        <form method="GET" class="filters-form">
+                            <label for="mes">Filtrar por mes:</label>
+                            <select name="mes" id="mes">
+                                <option value="">Todos</option>
+                                <?php 
+                                    $meses = [
+                                      1 => "Enero ", 
+                                      2 => "Febrero ", 
+                                      3 => "Marzo", 
+                                      4 => "Abril", 
+                                      5 => "Mayo", 
+                                      6 => "Junio", 
+                                      7 => "Julio", 
+                                      8 => "Agosto", 
+                                      9 => "Septiembre", 
+                                      10 => "Octubre", 
+                                      11 => "Noviembre", 
+                                      12 => "Diciembre"
+                                    ];
+                                    ?>
+
+                                    <?php for ($i = 1; $i <= 12; $i++) {
+                                        $selected = (isset($_GET['mes']) && $_GET['mes'] == $i) ? 'selected' : '';
+                                        echo "<option value='$i' $selected>{$meses[$i]}</option>";
+                                    } ?>
+
+                            </select>
+                            <button type="submit">Filtrar</button>
+
+                        </form>
+                  </div>
+                <!------------------ RESUMEN GENERAL------------------->
+                  <div class="summary-section">
+                      <h2>Resumen General</h2>
+                      <p><strong>Clientes activos:</strong> <?= $total_activos ?></p>
+                      <p><strong>Total vendido en el año:</strong> $<?= number_format($total_anual) ?></p>
+                      <p><strong>Plan más vendido:</strong> <?= $top_plan['meses_del_plan'] ?> meses (<?= $top_plan['total'] ?> inscripciones)</p>
+                  </div>
+
                 </div>
-            </div>
 
-            <form method="GET" class="filters-form">
-              <select name="estado_filtro">
-                <option value="todos" <?= ($estado ?? '') === 'todos' ? 'selected' : '' ?>>Todos</option>
-                <option value="vigentes" <?= ($estado ?? '') === 'vigentes' ? 'selected' : '' ?>>Vigentes</option>
-                <option value="anulados" <?= ($estado ?? '') === 'anulados' ? 'selected' : '' ?>>Anulados</option>
-              </select>
-              <button type="submit">Filtrar</button>
-            </form>
+                <!--------------------------- GRAFICA DE TABLAS --------------------------->
+                <div class="chart-row">
+                    <div class="chart-box">
+                      <h1 class="graph_Tables">GRAFICA DE BARRAS</h1>
+                      <canvas id="ventasPorMes" width="400" height="300"></canvas>
+                    </div>
 
-
-
-            <!--------------------------- TABLA DE VENTAS------------------------------->
-            <div style="margin-top:50px;">
-              <h2>📋 Detalle de Ventas</h2>
-                <div class="table-container">
-                  <table id="ventasTable" class="display">
-                      <thead>
-                          <tr>
-                              <th>ID</th>
-                              <th>Cliente</th>
-                              <th>Plan</th>
-                              <th>Meses</th>
-                              <th>Fecha venta</th>
-                              <th>Valor</th>  
-                              <th>Acciones</th>                                                    
-                          </tr>
-                      </thead>
+                    <div id="resumenVentasMes" style="margin-top:20px; font-size:16px; font-weight:bold;"></div>
                   
-                      <tbody>
-                          <?php while($row = $result->fetch_assoc()): ?>
-                          <tr>
-                              <td><?= $row['id'] ?></td>
-                              <td><?= $row['nombres'] . " " . $row['apellidos'] ?></td>
-                              <td><?= $row['plan'] ?></td>
-                              <td><?= $row['meses'] ?></td>
-                              <td><?= $row['fecha_venta'] ?></td>                              
-                              <td>$<?= number_format($row['valor']) ?></td>  
-                              
-                             <td>
-                                <?php if ($row['estado'] == 'VIGENTE') { ?>
-                                  <form method="POST" action="../controller/cancelar_inscripcion.php" class="cancelar-form" style="display:inline;">
-                                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                    <button type="button" class="btn-cancelar cancelar-btn">❌ Cancelar</button>
-                                  </form>
-
-                                <?php } else { ?>
-                                  <span style="color:red;">Anulado</span>
-                                <?php } ?>
-                              </td>
-
-                         
-                          </tr>
-                          <?php endwhile; ?>
-                      </tbody>
-                  </table>
+                    <div class="chart-box">
+                      <h1 class="graph_Tables">GRAFICA DE PASTEL</h1>
+                      <canvas id="ventasPorPlan" width="400" height="300"></canvas>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+                <form method="GET" class="filters-form">
+                  <select name="estado_filtro">
+                    <option value="todos" <?= ($estado ?? '') === 'todos' ? 'selected' : '' ?>>Todos</option>
+                    <option value="vigentes" <?= ($estado ?? '') === 'vigentes' ? 'selected' : '' ?>>Vigentes</option>
+                    <option value="anulados" <?= ($estado ?? '') === 'anulados' ? 'selected' : '' ?>>Anulados</option>
+                  </select>
+                  <button type="submit">Filtrar</button>
+                </form>
+
+
+
+                <!--------------------------- TABLA DE VENTAS------------------------------->
+                <div style="margin-top:50px;">
+                  <h2>📋 Detalle de Ventas</h2>
+                    <div class="table-container">
+                      <table id="ventasTable" class="display">
+                          <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Cliente</th>
+                                  <th>Plan</th>
+                                  <th>Meses</th>
+                                  <th>Fecha venta</th>
+                                  <th>Valor</th>  
+                                  <th>Acciones</th>                                                    
+                              </tr>
+                          </thead>
+                      
+                          <tbody>
+                              <?php while($row = $result->fetch_assoc()): ?>
+                              <tr>
+                                  <td><?= $row['id'] ?></td>
+                                  <td><?= $row['nombres'] . " " . $row['apellidos'] ?></td>
+                                  <td><?= $row['plan'] ?></td>
+                                  <td><?= $row['meses'] ?></td>
+                                  <td><?= $row['fecha_venta'] ?></td>                              
+                                  <td>$<?= number_format($row['valor']) ?></td>  
+                                  
+                                <td>
+                                    <?php if ($row['estado'] == 'VIGENTE') { ?>
+                                      <form method="POST" action="../controller/cancelar_inscripcion.php" class="cancelar-form" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                        <button type="button" class="btn-cancelar cancelar-btn">❌ Cancelar</button>
+                                      </form>
+
+                                    <?php } else { ?>
+                                      <span style="color:red;">Anulado</span>
+                                    <?php } ?>
+                                  </td>
+
+                            
+                              </tr>
+                              <?php endwhile; ?>
+                          </tbody>
+                      </table>
+                    </div>
+                </div>
+
+            </div>
+          </div>
       </div>
     </main>
 
