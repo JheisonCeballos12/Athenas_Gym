@@ -80,6 +80,7 @@
                 $contador = 1; // empieza en 1
                 
               ?>
+              
 
                <!-- 🔁 Ciclo que recorre los planes -->
               <?php while($row = $resultado->fetch_assoc()): ?>
@@ -110,6 +111,7 @@
 
   <!--TOAST-->
   <?php include("../partials/toast.php"); ?>
+  
 
 </body>
 </html>
